@@ -35,36 +35,77 @@ export default function GlobeVisualization() {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center perspective-2000">
-      {/* Globe Sphere - Decorative */}
-      <motion.div 
-        style={{ 
-          rotateY: autoRotate,
-          rotateZ: 23.5 // Earth's tilt
-        }}
-        className="relative w-[260px] h-[260px] md:w-[700px] md:h-[700px] rounded-full border border-accent-gold/30 flex items-center justify-center overflow-hidden bg-gradient-to-br from-white/5 to-transparent backdrop-blur-[2px]"
-      >
-        {/* Latitudes & Longitudes */}
-        <div className="absolute inset-0 opacity-20">
-          {[...Array(12)].map((_, i) => (
-            <div 
-              key={`lat-${i}`} 
-              className="absolute w-full h-[1px] bg-accent-gold/20" 
-              style={{ top: `${(i + 1) * 7.7}%` }} 
-            />
-          ))}
-          {[...Array(12)].map((_, i) => (
-            <div 
-              key={`lng-${i}`} 
-              className="absolute h-full w-[1px] bg-accent-gold/20" 
-              style={{ left: `${(i + 1) * 7.7}%` }} 
-            />
-          ))}
-        </div>
+      {/* Globe Sphere - Enhanced 3D Look */}
+      <div className="relative group">
+        {/* Outer Atmosphere Glow */}
+        <div className="absolute inset-[-40px] md:inset-[-100px] rounded-full bg-accent-gold/10 blur-[100px] pointer-events-none" />
+        
+        {/* The Sphere Container - Oblate Spheroid Shape (Wider than Tall) */}
+        <motion.div 
+          style={{ 
+            rotateY: autoRotate,
+            rotateZ: 23.5 // Earth's tilt
+          }}
+          className="relative w-[300px] h-[260px] md:w-[800px] md:h-[700px] rounded-[50%] border border-accent-gold/40 flex items-center justify-center overflow-hidden bg-primary shadow-[0_0_100px_rgba(212,175,55,0.2)] isolate"
+        >
+          {/* Spherical Inner Shading - Enhanced for depth */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(212,175,55,0.25)_0%,rgba(0,0,0,0.9)_100%)] z-10 pointer-events-none" />
+          
+          {/* Fresnel / Rim Light - Highlights the edges */}
+          <div className="absolute inset-0 rounded-[50%] border-[12px] border-white/5 blur-[2px] z-20 pointer-events-none" />
+          <div className="absolute inset-0 rounded-[50%] shadow-[inset_0_0_80px_rgba(212,175,55,0.4)] z-20 pointer-events-none" />
 
-        {/* Glow Effects */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(212,175,55,0.1)_0%,transparent_70%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-accent-gold/5 to-transparent" />
-      </motion.div>
+          {/* Latitudes & Longitudes - Curved simulation */}
+          <div className="absolute inset-0 opacity-40 z-0">
+            {/* Longitude lines with rotation and spherical warping */}
+            {[...Array(12)].map((_, i) => (
+              <div 
+                key={`lng-${i}`} 
+                className="absolute inset-0 border-x border-accent-gold/15 rounded-[50%] transform-gpu" 
+                style={{ 
+                  transform: `rotateY(${i * 30}deg) scaleX(${Math.cos((i * 30 * Math.PI) / 180)})`,
+                  opacity: Math.abs(Math.sin((i * 30 * Math.PI) / 180)) > 0.5 ? 0.3 : 1
+                }} 
+              />
+            ))}
+            {/* Latitude lines - Stacked ellipses for 3D look */}
+            {[...Array(8)].map((_, i) => {
+              const yPos = (i + 1) * 11;
+              const scale = Math.sin((yPos / 100) * Math.PI);
+              return (
+                <div 
+                  key={`lat-${i}`} 
+                  className="absolute left-1/2 -translate-x-1/2 border-y border-accent-gold/15 rounded-[50%]" 
+                  style={{ 
+                    top: `${yPos}%`, 
+                    height: `${4}px`, 
+                    width: `${scale * 100}%`,
+                    opacity: scale * 0.8
+                  }} 
+                />
+              );
+            })}
+          </div>
+
+          {/* Atmosphere Highlight */}
+          <div className="absolute top-0 left-1/4 w-1/2 h-1/4 bg-white/10 blur-[40px] rounded-full z-10" />
+          
+          {/* Dynamic Grid Overlay */}
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 contrast-150 brightness-50 mix-blend-overlay pointer-events-none" />
+        </motion.div>
+
+        {/* Outer Orbit Rings - For extra depth */}
+        <motion.div 
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-[-20px] md:inset-[-60px] border border-accent-gold/10 rounded-full border-dashed pointer-events-none"
+        />
+        <motion.div 
+          animate={{ rotate: -360 }}
+          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-[-40px] md:inset-[-120px] border border-white/5 rounded-full pointer-events-none"
+        />
+      </div>
 
       {/* Interactive Markers - Positioned relative to the container */}
       {BUSINESS_LINKS.map((link) => (

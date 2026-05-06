@@ -12,11 +12,9 @@ import Magnetic from "./ui/Magnetic";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
   { name: "Products", href: "/products" },
-  { name: "Get Quote", href: "/get-quote" },
+  { name: "AI Assistant", href: "#ai", isAI: true },
   { name: "Quality", href: "/quality" },
-  { name: "Export", href: "/export" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -44,7 +42,6 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans selection:bg-accent-gold selection:text-primary bg-[#0B0B0F] overflow-x-hidden">
-      <ChatAssistant />
       <MobileBottomMenu />
       {/* Top Bar - Professional & Informative */}
       <div className="bg-black text-white py-2 px-4 hidden md:block border-b border-white/5">
@@ -113,20 +110,35 @@ export default function Layout() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-4">
             {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                onMouseEnter={() => playHover()}
-                onClick={() => playClick()}
-                className={cn(
-                  "px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.4em] transition-all relative group font-sans",
-                  location.pathname === item.href 
-                    ? "text-primary bg-accent-gold shadow-gold" 
-                    : "text-white/60 hover:text-accent-gold"
-                )}
-              >
-                {item.name}
-              </Link>
+              item.isAI ? (
+                <button
+                  key="ai-trigger"
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent("trigger-ai-chat"));
+                    playClick();
+                  }}
+                  onMouseEnter={() => playHover()}
+                  className="px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.4em] transition-all relative group font-sans text-accent-gold hover:bg-accent-gold/10"
+                >
+                  {item.name}
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-accent-gold rounded-full animate-pulse shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
+                </button>
+              ) : (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onMouseEnter={() => playHover()}
+                  onClick={() => playClick()}
+                  className={cn(
+                    "px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.4em] transition-all relative group font-sans",
+                    location.pathname === item.href 
+                      ? "text-primary bg-accent-gold shadow-gold" 
+                      : "text-white/60 hover:text-accent-gold"
+                  )}
+                >
+                  {item.name}
+                </Link>
+              )
             ))}
             
             <button 
@@ -177,21 +189,37 @@ export default function Layout() {
             >
               <div className="flex flex-col gap-4">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className={cn(
-                      "text-xl font-bold p-4 rounded-2xl transition-colors",
-                      location.pathname === item.href ? "bg-accent-gold text-primary" : "text-white/60 hover:bg-white/5"
-                    )}
-                    onMouseEnter={() => playHover()}
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      playClick();
-                    }}
-                  >
-                    {item.name}
-                  </Link>
+                  item.isAI ? (
+                    <button
+                      key="ai-trigger-mobile"
+                      onClick={() => {
+                        window.dispatchEvent(new CustomEvent("trigger-ai-chat"));
+                        setIsMobileMenuOpen(false);
+                        playClick();
+                      }}
+                      onMouseEnter={() => playHover()}
+                      className="text-xl font-bold p-4 rounded-2xl transition-colors text-accent-gold hover:bg-white/5 flex items-center justify-between"
+                    >
+                      {item.name}
+                      <span className="w-2 h-2 bg-accent-gold rounded-full animate-pulse shadow-[0_0_10px_rgba(212,175,55,0.8)]" />
+                    </button>
+                  ) : (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={cn(
+                        "text-xl font-bold p-4 rounded-2xl transition-colors",
+                        location.pathname === item.href ? "bg-accent-gold text-primary" : "text-white/60 hover:bg-white/5"
+                      )}
+                      onMouseEnter={() => playHover()}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        playClick();
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                  )
                 ))}
               </div>
             </motion.div>

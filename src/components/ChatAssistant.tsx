@@ -10,8 +10,23 @@ interface Message {
   text: string;
 }
 
-export default function ChatAssistant() {
-  const [isOpen, setIsOpen] = React.useState(false);
+interface ChatAssistantProps {
+  forcedOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+export default function ChatAssistant({ forcedOpen, onOpenChange }: ChatAssistantProps) {
+  const [internalOpen, setInternalOpen] = React.useState(false);
+  
+  const isOpen = forcedOpen !== undefined ? forcedOpen : internalOpen;
+  const setIsOpen = (open: boolean) => {
+    if (onOpenChange) {
+      onOpenChange(open);
+    } else {
+      setInternalOpen(open);
+    }
+  };
+
   const [messages, setMessages] = React.useState<Message[]>([]);
   const [input, setInput] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -47,20 +62,6 @@ export default function ChatAssistant() {
 
   return (
     <>
-      {/* Toggle Button */}
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onMouseEnter={() => playHover()}
-        onClick={() => {
-          setIsOpen(!isOpen);
-          playClick();
-        }}
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-14 h-14 md:w-16 md:h-16 bg-accent-gold text-primary rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center border-4 border-white/10 mb-20 md:mb-0"
-      >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
-      </motion.button>
-
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
@@ -68,7 +69,7 @@ export default function ChatAssistant() {
             initial={{ opacity: 0, y: 100, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
-            className="fixed bottom-24 right-6 md:bottom-28 md:right-8 z-50 w-[calc(100%-3rem)] md:w-[400px] h-[500px] md:h-[600px] bg-black/80 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden border border-white/5"
+            className="fixed bottom-48 right-6 md:bottom-44 md:right-6 z-50 w-[calc(100%-3rem)] md:w-[400px] h-[500px] md:h-[600px] bg-black/80 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col overflow-hidden border border-white/5"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-accent-gold to-[#0B0B0F] p-8 text-primary flex items-center justify-between border-b border-white/5">

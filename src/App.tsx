@@ -6,8 +6,7 @@ import SmoothScroll from "./components/layout/SmoothScroll";
 import CustomCursor from "./components/layout/CustomCursor";
 import LoadingScreen from "./components/layout/LoadingScreen";
 import PageTransition from "./components/layout/PageTransition";
-import FloatingLinkedIn from "./components/FloatingLinkedIn";
-import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import FloatingActionDock from "./components/FloatingActionDock";
 import { useDevice } from "./hooks/useDevice";
 
 const Home = React.lazy(() => import("./pages/Home"));
@@ -48,8 +47,7 @@ export default function App() {
       <LoadingScreen />
       <CustomCursor isLowEnd={isLowEnd} />
       <SmoothScroll isLowEnd={isLowEnd}>
-        <FloatingLinkedIn />
-        <FloatingWhatsApp />
+        <FloatingActionDock />
         <AnimatedRoutes />
       </SmoothScroll>
     </BrowserRouter>
