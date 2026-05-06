@@ -12,13 +12,13 @@ export default function LinkedInSection({ playClick, playHover }: LinkedInSectio
   return (
     <section className="py-16 md:py-32 px-6">
       <div className="max-w-5xl mx-auto">
-        <div className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 border border-white/10 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-8 md:p-12 opacity-5 group-hover:rotate-12 transition-transform">
+        <div className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] md:rounded-[4rem] p-6 md:p-24 border border-white/10 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-6 md:p-12 opacity-5 group-hover:rotate-12 transition-transform">
             <Linkedin className="w-[120px] h-[120px] md:w-[200px] md:h-[200px] text-white" />
           </div>
           
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-16 text-center md:text-left">
-            <div className="w-32 h-32 md:w-48 md:h-48 rounded-[2rem] md:rounded-[3rem] bg-accent-gold overflow-hidden shrink-0 shadow-2xl border-4 border-white/10">
+            <div className="w-28 h-28 md:w-48 md:h-48 rounded-[2rem] md:rounded-[3rem] bg-accent-gold overflow-hidden shrink-0 shadow-2xl border-4 border-white/10">
               <img 
                 src="https://media.licdn.com/dms/image/v2/C5603AQGEf5vUvuvXAg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1660370631622?e=1746057600&v=beta&t=7l3z2i8q9o4J0J5U7l3z2i8q9o4J0J5U7l3z2i8q9o4J0J" 
                 alt="Nawshad Latheef" 
@@ -43,7 +43,7 @@ export default function LinkedInSection({ playClick, playHover }: LinkedInSectio
                 onClick={playClick}
                 className={cn(
                   buttonVariants({ variant: "default" }),
-                  "bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white rounded-full px-10 md:px-12 h-14 md:h-16 text-xs md:text-sm font-bold uppercase tracking-widest flex items-center gap-4 transition-all shadow-xl"
+                  "bg-[#0077B5] hover:bg-white hover:text-[#0077B5] text-white rounded-full px-6 md:px-12 h-14 md:h-16 text-[10px] md:text-sm font-bold uppercase tracking-widest flex items-center gap-4 transition-all shadow-xl"
                 )}
               >
                 Connect on LinkedIn

@@ -150,7 +150,7 @@ export default function HeroSection({
           <div className="pointer-events-auto px-4">
             {!isLowEnd ? (
               <MouseParallax strength={40}>
-                <h2 className="text-5xl md:text-[8rem] font-bold text-white font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase drop-shadow-2xl perspective-1000">
+                <h2 className="text-4xl md:text-[8rem] font-bold text-white font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase drop-shadow-2xl perspective-1000">
                   <InteractiveLetters text="Sri Lanka's Finest" mousePos={mousePos} /> <br />
                   <InteractiveLetters 
                     text="Coir Legacy" 
@@ -170,7 +170,7 @@ export default function HeroSection({
               </MouseParallax>
             ) : (
               <div>
-                <h2 className="text-5xl md:text-[8rem] font-bold text-white font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase">
+                <h2 className="text-4xl md:text-[8rem] font-bold text-white font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase">
                   Sri Lanka's Finest <br />
                   <span className="text-accent-gold italic">Coir Legacy</span>
                 </h2>

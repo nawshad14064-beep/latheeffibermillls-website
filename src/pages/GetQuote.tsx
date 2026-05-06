@@ -55,25 +55,25 @@ export default function GetQuote() {
         </div>
 
         {/* Multi-step Form Container */}
-        <div className="bg-white/5 backdrop-blur-3xl rounded-[4rem] border border-white/10 p-8 md:p-16 shadow-3xl relative overflow-hidden">
+        <div className="bg-white/5 backdrop-blur-3xl rounded-[2.5rem] md:rounded-[4rem] p-6 md:p-16 shadow-3xl relative overflow-hidden">
           {/* Progress Bar */}
           {!submitted && (
-            <div className="flex justify-between mb-16 relative">
+            <div className="flex justify-between mb-10 md:mb-16 relative">
               <div className="absolute top-1/2 left-0 w-full h-[2px] bg-white/5 -translate-y-1/2 z-0" />
               <div 
                 className="absolute top-1/2 left-0 h-[2px] bg-accent-gold -translate-y-1/2 z-0 transition-all duration-500" 
                 style={{ width: `${((step - 1) / (steps.length - 1)) * 100}%` }}
               />
               {steps.map((s) => (
-                <div key={s.id} className="relative z-10 flex flex-col items-center gap-4">
+                <div key={s.id} className="relative z-10 flex flex-col items-center gap-2 md:gap-4">
                    <div className={cn(
-                    "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 border-2",
+                    "w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-500 border-2",
                     step >= s.id ? "bg-accent-gold border-accent-gold text-primary" : "bg-[#0a0a0a] border-white/10 text-white/20"
                   )}>
-                    <s.icon size={20} />
+                    <s.icon size={16} className="md:w-5 md:h-5" />
                   </div>
                   <span className={cn(
-                    "text-[10px] font-bold uppercase tracking-widest transition-colors",
+                    "text-[8px] md:text-[10px] font-bold uppercase tracking-widest transition-colors",
                     step >= s.id ? "text-accent-gold" : "text-white/20"
                   )}>
                     {s.title}
@@ -121,10 +121,10 @@ export default function GetQuote() {
                     <div className="space-y-4">
                       <Label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-4">Full Name</Label>
                       <div className="relative">
-                        <User className="absolute left-6 top-1/2 -translate-y-1/2 text-accent-gold" size={20} />
+                        <User className="absolute left-6 top-1/2 -translate-y-1/2 text-accent-gold" size={18} />
                         <Input 
                           placeholder="John Doe" 
-                          className="h-20 pl-16 rounded-3xl bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all"
+                          className="h-14 md:h-20 pl-16 rounded-[1.25rem] md:rounded-3xl bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all"
                           value={formData.name}
                           onChange={e => setFormData({...formData, name: e.target.value})}
                           required
@@ -134,11 +134,11 @@ export default function GetQuote() {
                     <div className="space-y-4">
                       <Label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-4">Email Address</Label>
                       <div className="relative">
-                        <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-accent-gold" size={20} />
+                        <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-accent-gold" size={18} />
                         <Input 
                           type="email"
                           placeholder="john@example.com" 
-                          className="h-20 pl-16 rounded-3xl bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all"
+                          className="h-14 md:h-20 pl-16 rounded-[1.25rem] md:rounded-3xl bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all"
                           value={formData.email}
                           onChange={e => setFormData({...formData, email: e.target.value})}
                           required
@@ -148,10 +148,10 @@ export default function GetQuote() {
                     <div className="md:col-span-2 space-y-4">
                       <Label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-4">Country / Region</Label>
                       <div className="relative">
-                        <Globe className="absolute left-6 top-1/2 -translate-y-1/2 text-accent-gold" size={20} />
+                        <Globe className="absolute left-6 top-1/2 -translate-y-1/2 text-accent-gold" size={18} />
                         <Input 
                           placeholder="United Kingdom" 
-                          className="h-20 pl-16 rounded-3xl bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all"
+                          className="h-14 md:h-20 pl-16 rounded-[1.25rem] md:rounded-3xl bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all"
                           value={formData.country}
                           onChange={e => setFormData({...formData, country: e.target.value})}
                           required
@@ -166,7 +166,7 @@ export default function GetQuote() {
                     <div className="space-y-4">
                       <Label className="text-xs font-bold uppercase tracking-widest text-white/40 ml-4">Product Type</Label>
                       <select 
-                        className="w-full h-20 px-8 rounded-3xl bg-white/5 border border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all appearance-none"
+                        className="w-full h-14 md:h-20 px-8 rounded-[1.25rem] md:rounded-3xl bg-white/5 border border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all appearance-none"
                         value={formData.product}
                         onChange={e => setFormData({...formData, product: e.target.value})}
                         required
@@ -183,7 +183,7 @@ export default function GetQuote() {
                       <Input 
                         type="number"
                         placeholder="e.g. 25" 
-                        className="h-20 px-8 rounded-3xl bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all"
+                        className="h-14 md:h-20 px-8 rounded-[1.25rem] md:rounded-3xl bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all"
                         value={formData.quantity}
                         onChange={e => setFormData({...formData, quantity: e.target.value})}
                         required
@@ -207,13 +207,13 @@ export default function GetQuote() {
                   </div>
                 )}
 
-                <div className="flex justify-between pt-8">
+                <div className="flex justify-between pt-8 pb-10 md:pb-0">
                   {step > 1 && (
                     <Button 
                       type="button"
                       onClick={prevStep}
                       variant="outline"
-                      className="rounded-full px-12 h-16 border-white/10 text-white hover:bg-white/5"
+                      className="rounded-full px-8 md:px-12 h-14 md:h-16 border-white/10 text-white hover:bg-white/5 text-sm"
                     >
                       Previous
                     </Button>
@@ -223,16 +223,16 @@ export default function GetQuote() {
                       <Button 
                         type="button"
                         onClick={nextStep}
-                        className="bg-accent-gold text-primary rounded-full px-16 h-16 text-lg font-bold hover:bg-white transition-all"
+                        className="bg-accent-gold text-primary rounded-full px-12 md:px-16 h-14 md:h-16 text-base md:text-lg font-bold hover:bg-white transition-all"
                       >
                         Next Step
                       </Button>
                     ) : (
                       <Button 
                         type="submit"
-                        className="bg-accent-gold text-primary rounded-full px-20 h-20 text-xl font-bold hover:bg-white shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-all"
+                        className="bg-accent-gold text-primary rounded-full px-12 md:px-20 h-16 md:h-20 text-base md:text-xl font-bold hover:bg-white shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-all"
                       >
-                        Generate Smart Quote
+                        Generate Quote
                       </Button>
                     )}
                   </div>

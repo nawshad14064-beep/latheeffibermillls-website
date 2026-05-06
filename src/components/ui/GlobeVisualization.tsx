@@ -41,7 +41,7 @@ export default function GlobeVisualization() {
           rotateY: autoRotate,
           rotateZ: 23.5 // Earth's tilt
         }}
-        className="relative w-[320px] h-[320px] md:w-[700px] md:h-[700px] rounded-full border border-accent-gold/30 flex items-center justify-center overflow-hidden bg-gradient-to-br from-white/5 to-transparent backdrop-blur-[2px]"
+        className="relative w-[260px] h-[260px] md:w-[700px] md:h-[700px] rounded-full border border-accent-gold/30 flex items-center justify-center overflow-hidden bg-gradient-to-br from-white/5 to-transparent backdrop-blur-[2px]"
       >
         {/* Latitudes & Longitudes */}
         <div className="absolute inset-0 opacity-20">
@@ -70,7 +70,7 @@ export default function GlobeVisualization() {
       {BUSINESS_LINKS.map((link) => (
         <motion.div
           key={link.id}
-          className="absolute z-40"
+          className="absolute z-10"
           style={{
             left: `${link.coords.x}%`,
             top: `${link.coords.y}%`,

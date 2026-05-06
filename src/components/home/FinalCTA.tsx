@@ -121,7 +121,7 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                         placeholder="John Doe" 
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
+                        className="w-full h-14 md:h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
                       />
                     </div>
                     <div className="space-y-2">
@@ -132,7 +132,7 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                         placeholder="john@example.com" 
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
+                        className="w-full h-14 md:h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
                       />
                     </div>
                   </div>
@@ -146,7 +146,7 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                         placeholder="United Kingdom" 
                         value={formData.country}
                         onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                        className="w-full h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
+                        className="w-full h-14 md:h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
                       />
                     </div>
                     <div className="space-y-2">
@@ -154,7 +154,7 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                       <select 
                         value={formData.product}
                         onChange={(e) => setFormData({ ...formData, product: e.target.value })}
-                        className="w-full h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white focus:outline-none focus:border-accent-gold/50 transition-colors appearance-none"
+                        className="w-full h-14 md:h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white focus:outline-none focus:border-accent-gold/50 transition-colors appearance-none"
                       >
                         <option value="Coir Fiber Roll" className="bg-[#0B0B0F]">Coir Fiber Roll</option>
                         <option value="Coco Peat Block" className="bg-[#0B0B0F]">Coco Peat Block</option>
@@ -169,10 +169,10 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                     <textarea 
                       required
                       placeholder="Hi, I'm interested in importing..." 
-                      rows={4}
+                      rows={3}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl p-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors resize-none"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors resize-none text-sm md:text-base"
                     />
                   </div>
 
@@ -186,7 +186,7 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                     onMouseEnter={playHover}
                     className={cn(
                       buttonVariants({ variant: "default", size: "lg" }),
-                      "w-full bg-accent-gold hover:bg-white hover:text-primary text-primary rounded-2xl h-20 text-xl font-bold shadow-gold group flex items-center justify-center gap-4 transition-all duration-500 font-sans",
+                      "w-full bg-accent-gold hover:bg-white hover:text-primary text-primary rounded-2xl h-16 md:h-20 text-lg md:text-xl font-bold shadow-gold group flex items-center justify-center gap-4 transition-all duration-500 font-sans",
                       status === "loading" && "opacity-50 cursor-not-allowed"
                     )}
                   >

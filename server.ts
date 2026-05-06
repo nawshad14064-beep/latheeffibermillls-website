@@ -30,11 +30,15 @@ async function startServer() {
     });
 
     try {
-      if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-        console.warn("SMTP credentials not configured. Inquiry logged but not sent.");
+      const user = process.env.SMTP_USER;
+      const pass = process.env.SMTP_PASS;
+
+      if (!user || !pass || user.trim() === "" || pass.trim() === "") {
+        console.warn("SMTP credentials not configured or empty. Inquiry logged but not sent.");
+        console.log("Inquiry Content:", { name, email, country, product, message });
         return res.status(200).json({ 
           success: true, 
-          message: "Inquiry received (Demo Mode: Email logged to console)" 
+          message: "Demo Mode: Inquiry logged to server console (Set SMTP_USER and SMTP_PASS in Settings to send real emails)" 
         });
       }
 
