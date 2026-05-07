@@ -20,8 +20,47 @@ const navItems = [
 
 export default function Layout() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentLayout, setCurrentLayout] = useState<"premium" | "eco">("eco");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    // Ensure dark mode is active on mount if default is true
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  useEffect(() => {
+    // Sync with global custom events
+    const handleLayoutSwitch = () => {
+      setCurrentLayout(prev => prev === "premium" ? "eco" : "premium");
+    };
+    const handleThemeToggle = () => {
+      setIsDarkMode(prev => !prev);
+    };
+    window.addEventListener("switch-layout", handleLayoutSwitch);
+    window.addEventListener("trigger-theme-toggle", handleThemeToggle);
+    return () => {
+      window.removeEventListener("switch-layout", handleLayoutSwitch);
+      window.removeEventListener("trigger-theme-toggle", handleThemeToggle);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentLayout === "eco") {
+      document.documentElement.style.setProperty("--accent-gold", "#15803d"); // Forest Green
+      document.body.classList.add("layout-eco");
+    } else {
+      document.documentElement.style.setProperty("--accent-gold", "#D4AF37"); // Premium Gold
+      document.body.classList.remove("layout-eco");
+    }
+  }, [currentLayout]);
+
+  const toggleLayout = () => {
+    setCurrentLayout(prev => prev === "premium" ? "eco" : "premium");
+    playClick();
+  };
   const [language, setLanguage] = useState("EN");
   const location = useLocation();
 
@@ -38,13 +77,27 @@ export default function Layout() {
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle("dark");
+    window.dispatchEvent(new CustomEvent("sync-theme"));
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans selection:bg-accent-gold selection:text-primary bg-[#0B0B0F] overflow-x-hidden">
+    <div className={cn(
+      "min-h-screen flex flex-col font-sans transition-colors duration-700 overflow-x-hidden",
+      currentLayout === "premium" 
+        ? "selection:bg-accent-gold selection:text-primary bg-[#0B0B0F] text-white" 
+        : cn(
+            "selection:bg-green-600 selection:text-white",
+            isDarkMode ? "bg-[#051509] text-slate-200" : "bg-slate-50"
+          )
+    )}>
       <MobileBottomMenu />
       {/* Top Bar - Professional & Informative */}
-      <div className="bg-black text-white py-2 px-4 hidden md:block border-b border-white/5">
+      <div className={cn(
+        "py-2 px-4 hidden md:block border-b transition-colors duration-500",
+        currentLayout === "premium" 
+          ? "bg-black text-white border-white/5" 
+          : isDarkMode ? "bg-[#020a05] text-white border-green-900/30" : "bg-slate-900 text-slate-100 border-slate-700"
+      )}>
         <div className="max-w-7xl mx-auto flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.2em]">
           <div className="flex items-center gap-6">
             <a 
@@ -98,10 +151,16 @@ export default function Layout() {
               <Leaf size={28} />
             </div>
             <div className="flex flex-col">
-              <span className="text-3xl font-display tracking-[0.1em] text-white leading-none uppercase font-black">
+              <span className={cn(
+                "text-3xl font-display tracking-[0.1em] leading-none uppercase font-black transition-colors duration-500",
+                currentLayout === "premium" ? "text-white" : (isDarkMode ? "text-white" : "text-green-900")
+              )}>
                 LATHEEF
               </span>
-              <span className="text-[9px] font-bold uppercase tracking-[0.6em] text-accent-gold -mt-1 font-sans">
+              <span className={cn(
+                "text-[9px] font-bold uppercase tracking-[0.6em] -mt-1 font-sans transition-colors duration-500",
+                currentLayout === "premium" ? "text-accent-gold" : (isDarkMode ? "text-green-400" : "text-green-700")
+              )}>
                 Fiber Mills
               </span>
             </div>
@@ -109,6 +168,22 @@ export default function Layout() {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-4">
+            <button 
+              onClick={toggleLayout}
+              onMouseEnter={() => playHover()}
+              className={cn(
+                "px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.4em] transition-all flex items-center gap-3 border shadow-sm",
+                currentLayout === "premium"
+                  ? "bg-white/5 border-white/10 text-accent-gold hover:bg-white/10"
+                  : isDarkMode 
+                    ? "bg-green-900/20 border-green-800 text-green-400 hover:bg-green-900/40"
+                    : "bg-green-100 border-green-200 text-green-700 hover:bg-green-200"
+              )}
+            >
+              {currentLayout === "premium" ? <Leaf size={14} /> : <Globe size={14} />}
+              {currentLayout === "premium" ? "Switch to Eco Layout" : "Switch to Premium"}
+            </button>
+
             {navItems.map((item) => (
               item.isAI ? (
                 <button
@@ -132,8 +207,10 @@ export default function Layout() {
                   className={cn(
                     "px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-[0.4em] transition-all relative group font-sans",
                     location.pathname === item.href 
-                      ? "text-primary bg-accent-gold shadow-gold" 
-                      : "text-white/60 hover:text-accent-gold"
+                      ? (currentLayout === "premium" ? "text-primary bg-accent-gold shadow-gold" : "text-white bg-green-700 shadow-lg") 
+                      : (currentLayout === "premium" 
+                          ? "text-white/60 hover:text-accent-gold" 
+                          : (isDarkMode ? "text-slate-400 hover:text-green-400" : "text-slate-600 hover:text-green-900"))
                   )}
                 >
                   {item.name}
@@ -185,9 +262,24 @@ export default function Layout() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute top-24 left-4 right-4 bg-black/95 backdrop-blur-3xl rounded-[2rem] p-8 shadow-3xl md:hidden border border-white/10"
+              className={cn(
+                "absolute top-24 left-4 right-4 backdrop-blur-3xl rounded-[2rem] p-8 shadow-3xl md:hidden border transition-all duration-500",
+                currentLayout === "premium" ? "bg-black/95 border-white/10" : "bg-white border-green-100 shadow-2xl"
+              )}
             >
               <div className="flex flex-col gap-4">
+                <button 
+                  onClick={toggleLayout}
+                  className={cn(
+                    "text-xl font-bold p-4 rounded-2xl transition-colors flex items-center justify-between",
+                    currentLayout === "premium" 
+                      ? "bg-white/5 text-accent-gold" 
+                      : (isDarkMode ? "bg-green-900/20 text-green-400" : "bg-green-100 text-green-700")
+                  )}
+                >
+                  Change Layout
+                  {currentLayout === "premium" ? <Leaf size={24} /> : <Globe size={24} />}
+                </button>
                 {navItems.map((item) => (
                   item.isAI ? (
                     <button
@@ -234,7 +326,12 @@ export default function Layout() {
       </main>
 
       {/* Footer - Pure Black */}
-      <footer className="bg-black text-white pt-24 md:pt-40 pb-32 md:pb-16 overflow-hidden relative border-t border-white/5">
+      <footer className={cn(
+        "pt-24 md:pt-40 pb-32 md:pb-16 overflow-hidden relative border-t transition-colors duration-500",
+        currentLayout === "premium" 
+          ? "bg-black text-white border-white/5" 
+          : (isDarkMode ? "bg-[#020a05] text-white border-green-900/30" : "bg-slate-900 text-slate-100 border-slate-700")
+      )}>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-20 mb-20 md:mb-32">
             <div className="md:col-span-5 space-y-8 md:space-y-12">
@@ -243,8 +340,18 @@ export default function Layout() {
                   <Leaf className="w-8 h-8 md:w-12 md:h-12" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-4xl md:text-6xl font-display tracking-tighter leading-none uppercase text-white">LATHEEF</span>
-                  <span className="text-[10px] md:text-[14px] font-bold uppercase tracking-[0.5em] md:tracking-[0.6em] text-accent-gold -mt-1">Fiber Mills</span>
+                  <span className={cn(
+                    "text-4xl md:text-6xl font-display tracking-tighter leading-none uppercase transition-colors duration-500",
+                    currentLayout === "premium" ? "text-white" : (isDarkMode ? "text-white" : "text-green-900")
+                  )}>
+                    LATHEEF
+                  </span>
+                  <span className={cn(
+                    "text-[10px] md:text-[14px] font-bold uppercase tracking-[0.5em] md:tracking-[0.6em] -mt-1 transition-colors duration-500",
+                    currentLayout === "premium" ? "text-accent-gold" : (isDarkMode ? "text-green-400" : "text-green-700")
+                  )}>
+                    Fiber Mills
+                  </span>
                 </div>
               </Link>
               <p className="text-xl md:text-3xl text-light-grey/60 font-serif italic leading-relaxed max-w-md">

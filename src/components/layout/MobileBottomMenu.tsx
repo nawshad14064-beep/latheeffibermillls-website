@@ -21,7 +21,7 @@ export default function MobileBottomMenu() {
 
   return (
     <div className="fixed bottom-6 left-6 right-6 z-[60] md:hidden">
-      <div className="bg-primary/80 backdrop-blur-2xl border border-white/20 rounded-3xl p-2 flex justify-between items-center shadow-3xl">
+      <div className="bg-theme-card backdrop-blur-2xl border border-theme-card rounded-3xl p-2 flex justify-between items-center shadow-3xl">
         {menuItems.map((item) => {
           const isActive = location.pathname === item.href;
           return (
@@ -43,12 +43,12 @@ export default function MobileBottomMenu() {
                 size={20} 
                 className={cn(
                   "relative z-10 transition-colors",
-                  isActive ? "text-primary" : "text-white/60"
+                  isActive ? "text-primary" : "text-theme-subtitle"
                 )} 
               />
               <span className={cn(
                 "text-[8px] font-bold uppercase tracking-widest relative z-10 mt-1",
-                isActive ? "text-primary" : "text-white/40"
+                isActive ? "text-primary" : "text-theme-body"
               )}>
                 {item.label}
               </span>

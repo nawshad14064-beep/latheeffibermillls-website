@@ -32,7 +32,7 @@ export default function Home() {
   const heroImageScale = useTransform(scrollYProgress, [0, 0.5], [1, 1.5]);
 
   return (
-    <div className="bg-[#0B0B0F] overflow-hidden">
+    <div className="overflow-hidden">
       <HeroSection 
         isMobile={isMobile}
         isLowEnd={isLowEnd}

@@ -31,8 +31,21 @@
 
 @layer base {
   body {
-    @apply font-sans antialiased bg-[#0B0B0F] text-light-grey selection:bg-accent-gold selection:text-primary;
+    @apply font-sans antialiased bg-[#0B0B0F] text-light-grey selection:bg-accent-gold selection:text-primary transition-colors duration-700;
     animation: fadeIn 2s ease;
+  }
+
+  /* Layout Eco Overrides */
+  body.layout-eco {
+    @apply bg-slate-50 text-slate-800 selection:bg-green-600 selection:text-white;
+    --color-accent-gold: #166534;
+    --shadow-gold: 0 0 20px rgba(21, 128, 61, 0.1);
+  }
+
+  .dark body.layout-eco {
+    @apply bg-[#051509] text-slate-200 selection:bg-green-500 selection:text-white;
+    --color-accent-gold: #22c55e;
+    --shadow-gold: 0 0 30px rgba(34, 197, 94, 0.2);
   }
 }
 
@@ -42,11 +55,123 @@
 }
 
 @layer utilities {
+  .bg-section-hero {
+    @apply bg-[#050505];
+  }
+  .layout-eco .bg-section-hero {
+    @apply bg-slate-100;
+  }
+  .dark .layout-eco .bg-section-hero {
+    @apply bg-[#020a05];
+  }
+
+  .bg-gradient-hero-mask {
+    @apply bg-gradient-to-b from-[#050505] via-transparent to-[#050505];
+  }
+  .layout-eco .bg-gradient-hero-mask {
+    @apply bg-gradient-to-b from-slate-100 via-transparent to-slate-100;
+  }
+  .dark .layout-eco .bg-gradient-hero-mask {
+    @apply bg-gradient-to-b from-[#020a05] via-transparent to-[#020a05];
+  }
+
+  .text-hero-title {
+    @apply text-white;
+  }
+  .layout-eco .text-hero-title {
+    @apply text-green-900;
+  }
+  .dark .layout-eco .text-hero-title {
+    @apply text-white;
+  }
+
+  .text-hero-description {
+    @apply text-light-grey/60;
+  }
+  .layout-eco .text-hero-description {
+    @apply text-slate-600;
+  }
+  .dark .layout-eco .text-hero-description {
+    @apply text-slate-400;
+  }
+
+  .text-theme-title {
+    @apply text-white;
+  }
+  .layout-eco .text-theme-title {
+    @apply text-green-900;
+  }
+  .dark .layout-eco .text-theme-title {
+    @apply text-white;
+  }
+
+  .text-theme-subtitle {
+    @apply text-white/50;
+  }
+  .layout-eco .text-theme-subtitle {
+    @apply text-slate-600;
+  }
+  .dark .layout-eco .text-theme-subtitle {
+    @apply text-slate-400;
+  }
+
+  .text-theme-body {
+    @apply text-white/40;
+  }
+  .layout-eco .text-theme-body {
+    @apply text-slate-500;
+  }
+  .dark .layout-eco .text-theme-body {
+    @apply text-slate-500;
+  }
+
+  .text-theme-muted {
+    @apply text-white/30;
+  }
+  .layout-eco .text-theme-muted {
+    @apply text-slate-400;
+  }
+  .dark .layout-eco .text-theme-muted {
+    @apply text-slate-600;
+  }
+
+  .border-theme-card {
+    @apply border-white/10;
+  }
+  .layout-eco .border-theme-card {
+    @apply border-green-100;
+  }
+  .dark .layout-eco .border-theme-card {
+    @apply border-green-900/50;
+  }
+
+  .bg-theme-card {
+    @apply bg-white/5;
+  }
+  .layout-eco .bg-theme-card {
+    @apply bg-white;
+  }
+  .dark .layout-eco .bg-theme-card {
+    @apply bg-green-950/20;
+  }
+
   .bg-vibrant-mesh {
     background-color: #0B0B0F;
     background-image: 
       radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.05) 0px, transparent 50%),
       radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+  }
+  .layout-eco .bg-vibrant-mesh {
+    background-color: #f8fafc;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(22, 101, 52, 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(71, 85, 105, 0.02) 0px, transparent 50%);
+  }
+  .dark .layout-eco .bg-vibrant-mesh {
+    background-color: #051509;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(10, 46, 31, 0.05) 0px, transparent 50%);
   }
 
   .text-gradient-gold {
@@ -87,6 +212,18 @@
     background-image: 
       radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.03) 0px, transparent 50%),
       radial-gradient(at 100% 0%, rgba(10, 46, 31, 0.03) 0px, transparent 50%);
+  }
+  .layout-eco .bg-mesh {
+    background-color: #f1f5f9;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(22, 101, 52, 0.02) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(71, 85, 105, 0.01) 0px, transparent 50%);
+  }
+  .dark .layout-eco .bg-mesh {
+    background-color: #020a05;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.02) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(10, 46, 31, 0.01) 0px, transparent 50%);
   }
 
   .image-reveal-container {

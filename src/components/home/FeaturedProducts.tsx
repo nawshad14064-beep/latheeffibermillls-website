@@ -31,9 +31,9 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
         <div className="space-y-6 md:space-y-10">
           <div className="space-y-3 md:space-y-4">
             <h2 className="text-accent-gold font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px]">Pure Resonance</h2>
-            <h3 className="text-4xl md:text-[8rem] font-bold text-white font-serif leading-[0.9] md:leading-[0.8] tracking-tighter uppercase">Our <br /> <span className="text-accent-gold italic">Fiber</span></h3>
+            <h3 className="text-4xl md:text-[8rem] font-bold text-theme-title font-serif leading-[0.9] md:leading-[0.8] tracking-tighter uppercase">Our <br /> <span className="text-accent-gold italic">Fiber</span></h3>
           </div>
-          <p className="text-base md:text-xl text-white/40 font-light max-w-lg leading-relaxed">
+          <p className="text-base md:text-xl text-theme-subtitle font-light max-w-lg leading-relaxed">
             Distinguished by its golden hue and unmatched durability, our Sri Lankan coir fiber serves essential roles in global high-precision manufacturing.
           </p>
         </div>
@@ -62,14 +62,14 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
             transition={{ delay: i * 0.2 }}
             className="group relative"
           >
-            <div className="relative aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden mb-8 md:mb-12 shadow-3xl border-4 md:border-8 border-white/5">
+            <div className="relative aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden mb-8 md:mb-12 shadow-3xl border-4 md:border-8 border-theme-card">
               <img 
                 src={product.image} 
                 alt={product.title} 
                 className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent opacity-70 md:opacity-60 group-hover:opacity-40 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70 md:opacity-60 group-hover:opacity-40 transition-opacity" />
               
               <div className="absolute bottom-8 md:bottom-12 left-8 md:left-12 right-8 md:right-12">
                 <p className="text-accent-gold font-bold uppercase tracking-widest text-[9px] md:text-[10px] mb-2 md:mb-4">{product.category}</p>
@@ -82,7 +82,7 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
                 </Link>
               </div>
             </div>
-            <p className="text-base md:text-lg text-white/50 font-light leading-relaxed px-4">{product.description}</p>
+            <p className="text-base md:text-lg text-theme-body font-light leading-relaxed px-4">{product.description}</p>
           </motion.div>
         ))}
       </div>

@@ -1,18 +1,48 @@
 import * as React from "react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Linkedin, MessageSquare, X, Phone as WhatsAppIcon } from "lucide-react";
+import { Linkedin, MessageSquare, X, Phone as WhatsAppIcon, Layers, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ChatAssistant from "./ChatAssistant";
 
 export default function FloatingActionDock() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [currentLayout, setCurrentLayout] = useState<"premium" | "eco">("eco");
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const switchLayout = () => {
+    const next = currentLayout === "premium" ? "eco" : "premium";
+    setCurrentLayout(next);
+    window.dispatchEvent(new CustomEvent("switch-layout"));
+  };
+
+  const toggleTheme = () => {
+    const next = !isDarkMode;
+    setIsDarkMode(next);
+    document.documentElement.classList.toggle("dark");
+    window.dispatchEvent(new CustomEvent("trigger-theme-toggle"));
+  };
 
   React.useEffect(() => {
+    const handleLayoutSwitch = () => {
+      setCurrentLayout(prev => prev === "premium" ? "eco" : "premium");
+    };
+    window.addEventListener("switch-layout", handleLayoutSwitch);
+    
+    const handleThemeSync = () => {
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
+    };
+    window.addEventListener("sync-theme", handleThemeSync);
+
     const handleTrigger = () => setIsChatOpen(true);
     window.addEventListener("trigger-ai-chat", handleTrigger);
-    return () => window.removeEventListener("trigger-ai-chat", handleTrigger);
+    
+    return () => {
+      window.removeEventListener("switch-layout", handleLayoutSwitch);
+      window.removeEventListener("sync-theme", handleThemeSync);
+      window.removeEventListener("trigger-ai-chat", handleTrigger);
+    };
   }, []);
 
   const actions = [
@@ -35,11 +65,29 @@ export default function FloatingActionDock() {
       action: null
     },
     {
+      id: "theme",
+      icon: isDarkMode ? <Sun size={22} /> : <Moon size={22} />,
+      label: isDarkMode ? "Light Mode" : "Dark Mode",
+      hoverColor: currentLayout === "premium" ? "hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]" : "hover:shadow-[0_0_30px_rgba(21,128,61,0.3)]",
+      textColor: currentLayout === "premium" ? "text-white" : (isDarkMode ? "text-green-400" : "text-slate-800"),
+      href: null,
+      action: toggleTheme
+    },
+    {
+      id: "layout",
+      icon: <Layers size={22} />,
+      label: currentLayout === "premium" ? "Switch to Eco" : "Switch to Premium",
+      hoverColor: currentLayout === "premium" ? "hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]" : "hover:shadow-[0_0_30px_rgba(21,128,61,0.3)]",
+      textColor: currentLayout === "premium" ? "text-accent-gold" : "text-green-700",
+      href: null,
+      action: switchLayout
+    },
+    {
       id: "ai",
       icon: <MessageSquare size={22} />,
       label: "AI Support",
-      hoverColor: "hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]",
-      textColor: "text-accent-gold",
+      hoverColor: currentLayout === "premium" ? "hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]" : "hover:shadow-[0_0_30px_rgba(21,128,61,0.3)]",
+      textColor: currentLayout === "premium" ? "text-accent-gold" : "text-green-700",
       href: null,
       action: () => setIsChatOpen(true)
     }
@@ -93,7 +141,10 @@ export default function FloatingActionDock() {
                     act.textColor
                   )}
                 >
-                  <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0 whitespace-nowrap text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                  <span className={cn(
+                    "text-[9px] font-black uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0 whitespace-nowrap drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]",
+                    currentLayout === "premium" ? "text-white" : "text-green-900"
+                  )}>
                     {act.label}
                   </span>
                   <div className="w-10 h-10 flex items-center justify-center p-2 rounded-full transition-all duration-300 group-hover:bg-white/10 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
@@ -109,10 +160,18 @@ export default function FloatingActionDock() {
         <motion.button
           whileHover={{ scale: 1.05, rotate: 90 }}
           whileTap={{ scale: 0.95 }}
-          className="w-16 h-16 bg-primary/40 backdrop-blur-3xl border border-white/10 rounded-[1.5rem] flex items-center justify-center text-accent-gold shadow-[0_20px_50px_rgba(0,0,0,0.5)] group overflow-hidden relative"
+          className={cn(
+            "w-16 h-16 backdrop-blur-3xl border rounded-[1.5rem] flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] group overflow-hidden relative transition-all duration-500",
+            currentLayout === "premium" 
+              ? "bg-primary/40 border-white/10 text-accent-gold" 
+              : "bg-green-700/80 border-green-600 text-white"
+          )}
         >
           {/* Animated Background Glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-accent-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className={cn(
+            "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity",
+            currentLayout === "premium" ? "bg-gradient-to-br from-accent-gold/20 to-transparent" : "bg-gradient-to-br from-white/20 to-transparent"
+          )} />
           
           <AnimatePresence mode="wait">
             {isExpanded ? (
@@ -132,10 +191,22 @@ export default function FloatingActionDock() {
                 exit={{ rotate: -90, opacity: 0 }}
                 className="grid grid-cols-2 gap-1.5"
               >
-                 <div className="w-1.5 h-1.5 bg-accent-gold rounded-full group-hover:scale-150 transition-transform duration-500" />
-                 <div className="w-1.5 h-1.5 bg-white/20 rounded-full group-hover:scale-150 transition-transform duration-500 delay-75" />
-                 <div className="w-1.5 h-1.5 bg-white/20 rounded-full group-hover:scale-150 transition-transform duration-500 delay-150" />
-                 <div className="w-1.5 h-1.5 bg-accent-gold rounded-full group-hover:scale-150 transition-transform duration-500 delay-225" />
+                 <div className={cn(
+                   "w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-500",
+                   currentLayout === "premium" ? "bg-accent-gold" : "bg-white"
+                 )} />
+                 <div className={cn(
+                   "w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-500 delay-75",
+                   currentLayout === "premium" ? "bg-white/20" : "bg-white/40"
+                 )} />
+                 <div className={cn(
+                   "w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-500 delay-150",
+                   currentLayout === "premium" ? "bg-white/20" : "bg-white/40"
+                 )} />
+                 <div className={cn(
+                   "w-1.5 h-1.5 rounded-full group-hover:scale-150 transition-transform duration-500 delay-225",
+                   currentLayout === "premium" ? "bg-accent-gold" : "bg-white"
+                 )} />
               </motion.div>
             )}
           </AnimatePresence>

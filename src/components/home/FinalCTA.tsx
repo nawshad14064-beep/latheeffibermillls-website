@@ -56,15 +56,15 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-[#0B0B0F] relative overflow-hidden px-6">
+    <section className="py-20 md:py-32 relative overflow-hidden px-6 transition-colors duration-700 bg-section-hero">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
           <div className="space-y-8 md:space-y-12">
-            <h2 className="text-4xl md:text-9xl font-bold font-serif leading-[0.95] md:leading-[0.85] tracking-tighter text-white">
+            <h2 className="text-4xl md:text-9xl font-bold font-serif leading-[0.95] md:leading-[0.85] tracking-tighter text-theme-title">
               Ready to <br />
               <span className="text-accent-gold italic">Import?</span>
             </h2>
-            <p className="text-light-grey/60 text-lg md:text-2xl max-w-xl font-light leading-relaxed">
+            <p className="text-theme-subtitle text-lg md:text-2xl max-w-xl font-light leading-relaxed">
               Join our network of global partners and experience the premium quality of Sri Lankan coir fiber.
             </p>
             
@@ -72,14 +72,14 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
             <motion.div 
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="w-24 h-24 md:w-48 md:h-48 bg-accent-gold/5 border border-accent-gold/20 rounded-[1.5rem] md:rounded-[2rem] flex items-center justify-center relative group"
+              className="w-24 h-24 md:w-48 md:h-48 bg-theme-card border border-theme-card rounded-[1.5rem] md:rounded-[2rem] flex items-center justify-center relative group shadow-lg"
             >
               <Box className="w-10 h-10 md:w-12 md:h-12 text-accent-gold group-hover:scale-110 transition-transform" />
               <div className="absolute inset-0 bg-accent-gold/10 blur-[40px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.div>
           </div>
 
-          <div className="glass-ios rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-12 border border-white/5 relative overflow-hidden shadow-3xl bg-black/60">
+          <div className="bg-theme-card rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-12 border border-theme-card relative overflow-hidden shadow-3xl backdrop-blur-2xl">
             <AnimatePresence mode="wait">
               {status === "success" ? (
                 <motion.div 
@@ -92,8 +92,8 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                     <CheckCircle size={64} />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="text-3xl font-bold text-white">Message Sent!</h3>
-                    <p className="text-light-grey/60 max-w-xs mx-auto">
+                    <h3 className="text-3xl font-bold text-theme-title">Message Sent!</h3>
+                    <p className="text-theme-subtitle max-w-xs mx-auto">
                       {statusMessage}
                     </p>
                   </div>
@@ -114,65 +114,65 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-light-grey/40 ml-4">Full Name</label>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-theme-muted ml-4">Full Name</label>
                       <input 
                         required
                         type="text" 
                         placeholder="John Doe" 
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full h-14 md:h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
+                        className="w-full h-14 md:h-16 bg-white/5 border border-theme-card rounded-2xl px-6 text-theme-title placeholder:text-theme-muted focus:outline-none focus:border-accent-gold/50 transition-colors"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-light-grey/40 ml-4">Email Address</label>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-theme-muted ml-4">Email Address</label>
                       <input 
                         required
                         type="email" 
                         placeholder="john@example.com" 
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full h-14 md:h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
+                        className="w-full h-14 md:h-16 bg-white/5 border border-theme-card rounded-2xl px-6 text-theme-title placeholder:text-theme-muted focus:outline-none focus:border-accent-gold/50 transition-colors"
                       />
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-light-grey/40 ml-4">Country</label>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-theme-muted ml-4">Country</label>
                       <input 
                         required
                         type="text" 
                         placeholder="United Kingdom" 
                         value={formData.country}
                         onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                        className="w-full h-14 md:h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors"
+                        className="w-full h-14 md:h-16 bg-white/5 border border-theme-card rounded-2xl px-6 text-theme-title placeholder:text-theme-muted focus:outline-none focus:border-accent-gold/50 transition-colors"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-light-grey/40 ml-4">Product of Interest</label>
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-theme-muted ml-4">Product of Interest</label>
                       <select 
                         value={formData.product}
                         onChange={(e) => setFormData({ ...formData, product: e.target.value })}
-                        className="w-full h-14 md:h-16 bg-white/5 border border-white/10 rounded-2xl px-6 text-white focus:outline-none focus:border-accent-gold/50 transition-colors appearance-none"
+                        className="w-full h-14 md:h-16 bg-white/5 border border-theme-card rounded-2xl px-6 text-theme-title focus:outline-none focus:border-accent-gold/50 transition-colors appearance-none"
                       >
-                        <option value="Coir Fiber Roll" className="bg-[#0B0B0F]">Coir Fiber Roll</option>
-                        <option value="Coco Peat Block" className="bg-[#0B0B0F]">Coco Peat Block</option>
-                        <option value="Coir Rope" className="bg-[#0B0B0F]">Coir Rope</option>
-                        <option value="Coco Mulch" className="bg-[#0B0B0F]">Coco Mulch</option>
+                        <option value="Coir Fiber Roll" className="bg-primary text-white">Coir Fiber Roll</option>
+                        <option value="Coco Peat Block" className="bg-primary text-white">Coco Peat Block</option>
+                        <option value="Coir Rope" className="bg-primary text-white">Coir Rope</option>
+                        <option value="Coco Mulch" className="bg-primary text-white">Coco Mulch</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-light-grey/40 ml-4">Your Message</label>
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-theme-muted ml-4">Your Message</label>
                     <textarea 
                       required
-                      placeholder="Hi, I'm interested in importing..." 
+                      placeholder="Hi, I am interested in importing..." 
                       rows={3}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 text-white placeholder:text-white/20 focus:outline-none focus:border-accent-gold/50 transition-colors resize-none text-sm md:text-base"
+                      className="w-full bg-white/5 border border-theme-card rounded-2xl p-5 md:p-6 text-theme-title placeholder:text-theme-muted focus:outline-none focus:border-accent-gold/50 transition-colors resize-none text-sm md:text-base"
                     />
                   </div>
 
@@ -186,7 +186,7 @@ export default function FinalCTA({ playClick, playHover }: FinalCTAProps) {
                     onMouseEnter={playHover}
                     className={cn(
                       buttonVariants({ variant: "default", size: "lg" }),
-                      "w-full bg-accent-gold hover:bg-white hover:text-primary text-primary rounded-2xl h-16 md:h-20 text-lg md:text-xl font-bold shadow-gold group flex items-center justify-center gap-4 transition-all duration-500 font-sans",
+                      "w-full bg-accent-gold hover:bg-black hover:text-white text-primary rounded-2xl h-16 md:h-20 text-lg md:text-xl font-bold shadow-gold group flex items-center justify-center gap-4 transition-all duration-500 font-sans border-none",
                       status === "loading" && "opacity-50 cursor-not-allowed"
                     )}
                   >

@@ -70,7 +70,7 @@ export default function HeroSection({
   }, [isLowEnd]);
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-[#050505]">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden transition-colors duration-700 bg-section-hero">
       {/* Cinematic Background - Minimal & Premium */}
       <div className="absolute inset-0 z-0">
         <motion.div 
@@ -80,13 +80,13 @@ export default function HeroSection({
           <img 
             src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&q=80&w=2000" 
             alt="Lanka Fiber Mills Background" 
-            className="w-full h-full object-cover opacity-10"
+            className="w-full h-full object-cover opacity-10 grayscale brightness-110"
             referrerPolicy="no-referrer"
           />
         </motion.div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-accent-gold/5 blur-[200px] rounded-full pointer-events-none" />
         <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505] z-10" />
+        <div className="absolute inset-0 bg-gradient-hero-mask z-10" />
       </div>
 
       {/* Big Heading Behind Model - Medium Parallax */}
@@ -150,7 +150,7 @@ export default function HeroSection({
           <div className="pointer-events-auto px-4">
             {!isLowEnd ? (
               <MouseParallax strength={40}>
-                <h2 className="text-4xl md:text-[8rem] font-bold text-white font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase drop-shadow-2xl perspective-1000">
+                <h2 className="text-4xl md:text-[8rem] font-bold text-hero-title font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase drop-shadow-2xl perspective-1000">
                   <InteractiveLetters text="Sri Lanka's Finest" mousePos={mousePos} /> <br />
                   <InteractiveLetters 
                     text="Coir Legacy" 
@@ -163,18 +163,18 @@ export default function HeroSection({
                     x: mousePos.x * 0.3,
                     y: mousePos.y * 0.3
                   }}
-                  className="text-sm md:text-xl text-light-grey/60 max-w-2xl mx-auto font-light mt-6 md:mt-8 leading-relaxed font-sans tracking-wide"
+                  className="text-sm md:text-xl text-hero-description max-w-2xl mx-auto font-light mt-6 md:mt-8 leading-relaxed font-sans tracking-wide"
                 >
                   Empowering global industries with the world's most resilient and sustainable Sri Lankan coir fiber.
                 </motion.p>
               </MouseParallax>
             ) : (
               <div>
-                <h2 className="text-4xl md:text-[8rem] font-bold text-white font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase">
+                <h2 className="text-4xl md:text-[8rem] font-bold text-hero-title font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase">
                   Sri Lanka's Finest <br />
                   <span className="text-accent-gold italic">Coir Legacy</span>
                 </h2>
-                <p className="text-sm md:text-xl text-light-grey/60 max-w-2xl mx-auto font-light mt-6 md:mt-8 leading-relaxed font-sans tracking-wide">
+                <p className="text-sm md:text-xl text-hero-description max-w-2xl mx-auto font-light mt-6 md:mt-8 leading-relaxed font-sans tracking-wide">
                   Empowering global industries with the world's most resilient and sustainable Sri Lankan coir fiber.
                 </p>
               </div>

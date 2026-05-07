@@ -21,12 +21,12 @@ export default function GalleryPreview({ playClick, playHover }: GalleryPreviewP
     <section className="py-16 md:py-48 max-w-7xl mx-auto px-6">
       <div className="text-center mb-20 md:mb-32 space-y-6 md:space-y-8">
         <div className="flex justify-center">
-          <div className="inline-flex items-center gap-3 px-5 md:px-6 py-2 bg-white/5 border border-white/10 rounded-full text-accent-gold text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em]">
+          <div className="inline-flex items-center gap-3 px-5 md:px-6 py-2 bg-theme-card border border-theme-card rounded-full text-accent-gold text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em]">
             <Camera size={14} />
             <span>Visual Narrative</span>
           </div>
         </div>
-        <h2 className="text-4xl md:text-9xl font-bold text-white font-serif tracking-tighter leading-[0.9] md:leading-[0.8] uppercase">Inside <br /> <span className="text-accent-gold italic">Latheef</span></h2>
+        <h2 className="text-4xl md:text-9xl font-bold text-theme-title font-serif tracking-tighter leading-[0.9] md:leading-[0.8] uppercase">Inside <br /> <span className="text-accent-gold italic">Latheef</span></h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px] mb-16 md:mb-24">

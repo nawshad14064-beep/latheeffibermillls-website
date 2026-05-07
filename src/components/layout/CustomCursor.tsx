@@ -5,12 +5,28 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const [isPointer, setIsPointer] = React.useState(false);
+  const [currentLayout, setCurrentLayout] = React.useState<"premium" | "eco">("eco");
+  const [isDarkMode, setIsDarkMode] = React.useState(true);
 
   const springConfig = { damping: 25, stiffness: 250 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   React.useEffect(() => {
+    const handleLayoutSwitch = () => {
+      setCurrentLayout(prev => prev === "premium" ? "eco" : "premium");
+    };
+    const handleThemeToggle = () => {
+      setIsDarkMode(prev => !prev);
+    };
+    const handleThemeSync = () => {
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
+    };
+
+    window.addEventListener("switch-layout", handleLayoutSwitch);
+    window.addEventListener("trigger-theme-toggle", handleThemeToggle);
+    window.addEventListener("sync-theme", handleThemeSync);
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -32,10 +48,30 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
     window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
+      window.removeEventListener("switch-layout", handleLayoutSwitch);
+      window.removeEventListener("trigger-theme-toggle", handleThemeToggle);
+      window.removeEventListener("sync-theme", handleThemeSync);
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
+
+  const themeColors = {
+    premium: {
+      main: "#D4AF37",
+      border: "rgba(212, 175, 55, 0.3)",
+      glow: "rgba(212, 175, 55, 0.1)",
+      bgGlow: "rgba(212, 175, 55, 0.1)"
+    },
+    eco: {
+      main: isDarkMode ? "#22c55e" : "#15803d",
+      border: isDarkMode ? "rgba(34, 197, 94, 0.3)" : "rgba(21, 128, 61, 0.3)",
+      glow: isDarkMode ? "rgba(34, 197, 94, 0.1)" : "rgba(21, 128, 61, 0.1)",
+      bgGlow: isDarkMode ? "rgba(34, 197, 94, 0.05)" : "rgba(21, 128, 61, 0.05)"
+    }
+  };
+
+  const colors = themeColors[currentLayout];
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[10000] hidden md:block">
@@ -48,7 +84,10 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
             left: -150,
             top: -150,
           }}
-          className="w-[300px] h-[300px] bg-accent-gold/10 blur-[100px] rounded-full"
+          animate={{
+            backgroundColor: colors.bgGlow
+          }}
+          className="w-[300px] h-[300px] blur-[100px] rounded-full transition-colors duration-500"
         />
       )}
       
@@ -61,10 +100,10 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
         }}
         animate={{
           scale: isPointer ? 1.5 : 1,
-          border: isPointer ? "2px solid #D4AF37" : "1px solid rgba(212, 175, 55, 0.3)",
-          backgroundColor: isPointer ? "rgba(212, 175, 55, 0.1)" : "transparent",
+          border: isPointer ? `2px solid ${colors.main}` : `1px solid ${colors.border}`,
+          backgroundColor: isPointer ? colors.glow : "transparent",
         }}
-        className="w-10 h-10 rounded-full transition-colors duration-300"
+        className="w-10 h-10 rounded-full transition-all duration-300"
       />
       <motion.div
         style={{
@@ -75,9 +114,10 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
         }}
         animate={{
           scale: isPointer ? 0.5 : 1,
-          backgroundColor: "#D4AF37",
+          backgroundColor: colors.main,
+          boxShadow: `0 0 10px ${colors.main}`,
         }}
-        className="w-1.5 h-1.5 rounded-full shadow-[0_0_10px_#D4AF37]"
+        className="w-1.5 h-1.5 rounded-full transition-all duration-300"
       />
     </div>
   );
