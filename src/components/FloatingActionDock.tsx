@@ -84,21 +84,19 @@ export default function FloatingActionDock() {
                     visible: { opacity: 1, x: 0, scale: 1 }
                   }}
                   whileHover={{ 
-                    scale: 1.05, 
-                    x: -6,
+                    scale: 1.2, 
+                    x: -4,
                     transition: { type: "spring", stiffness: 400, damping: 10 }
                   }}
                   className={cn(
-                    "flex items-center gap-2.5 py-2 px-3 rounded-xl shadow-lg border border-white/10 group transition-all duration-500",
-                    "bg-white/10 backdrop-blur-2xl hover:bg-white/20 hover:border-white/30",
-                    act.hoverColor,
+                    "flex items-center gap-3 py-1 px-1 group transition-all duration-500",
                     act.textColor
                   )}
                 >
-                  <span className="text-[8px] font-black uppercase tracking-[0.1em] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0 whitespace-nowrap text-white">
+                  <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0 whitespace-nowrap text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                     {act.label}
                   </span>
-                  <div className="w-8 h-8 flex items-center justify-center p-1.5 rounded-lg bg-white/5 border border-white/5 group-hover:bg-white/10 transition-colors">
+                  <div className="w-10 h-10 flex items-center justify-center p-2 rounded-full transition-all duration-300 group-hover:bg-white/10 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                     {act.icon}
                   </div>
                 </motion.a>
