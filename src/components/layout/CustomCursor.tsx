@@ -79,22 +79,23 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
       {!isLowEnd && (
         <motion.div
           style={{
-            translateX: cursorXSpring,
-            translateY: cursorYSpring,
+            x: cursorXSpring,
+            y: cursorYSpring,
             left: -150,
             top: -150,
           }}
           animate={{
             backgroundColor: colors.bgGlow
           }}
-          className="w-[300px] h-[300px] blur-[100px] rounded-full transition-colors duration-500"
+          transition={{ duration: 0.5 }}
+          className="w-[300px] h-[300px] blur-[100px] rounded-full"
         />
       )}
       
       <motion.div
         style={{
-          translateX: cursorXSpring,
-          translateY: cursorYSpring,
+          x: cursorXSpring,
+          y: cursorYSpring,
           left: -20,
           top: -20,
         }}
@@ -103,12 +104,13 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
           border: isPointer ? `2px solid ${colors.main}` : `1px solid ${colors.border}`,
           backgroundColor: isPointer ? colors.glow : "transparent",
         }}
-        className="w-10 h-10 rounded-full transition-all duration-300"
+        transition={{ type: "spring", damping: 30, stiffness: 300, mass: 0.5 }}
+        className="w-10 h-10 rounded-full"
       />
       <motion.div
         style={{
-          translateX: cursorXSpring,
-          translateY: cursorYSpring,
+          x: cursorXSpring,
+          y: cursorYSpring,
           left: -3,
           top: -3,
         }}
@@ -117,7 +119,8 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
           backgroundColor: colors.main,
           boxShadow: `0 0 10px ${colors.main}`,
         }}
-        className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+        transition={{ type: "spring", damping: 30, stiffness: 300, mass: 0.5 }}
+        className="w-1.5 h-1.5 rounded-full"
       />
     </div>
   );

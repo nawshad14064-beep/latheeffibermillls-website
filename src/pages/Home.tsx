@@ -23,6 +23,30 @@ const LazySection = ({ children }: { children: React.ReactNode }) => (
 
 export default function Home() {
   const { isMobile, isLowEnd } = useDevice();
+  const [currentLayout, setCurrentLayout] = React.useState<"premium" | "eco">("eco");
+  const [isDarkMode, setIsDarkMode] = React.useState(true);
+
+  React.useEffect(() => {
+    const handleLayoutSwitch = () => {
+      setCurrentLayout(prev => prev === "premium" ? "eco" : "premium");
+    };
+    const handleThemeSync = () => {
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
+    };
+    window.addEventListener("switch-layout", handleLayoutSwitch);
+    window.addEventListener("sync-theme", handleThemeSync);
+    
+    // Initial sync
+    setIsDarkMode(document.documentElement.classList.contains("dark"));
+    if (document.body.classList.contains("layout-eco")) setCurrentLayout("eco");
+    else if (document.body.classList.contains("layout-premium")) setCurrentLayout("premium");
+
+    return () => {
+      window.removeEventListener("switch-layout", handleLayoutSwitch);
+      window.removeEventListener("sync-theme", handleThemeSync);
+    };
+  }, []);
+
   const [playHover] = useSound("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3", { volume: 0.1 });
   const [playClick] = useSound("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3", { volume: 0.2 });
 
@@ -34,6 +58,7 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       <HeroSection 
+        currentLayout={currentLayout}
         isMobile={isMobile}
         isLowEnd={isLowEnd}
         heroImageY={heroImageY}

@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import MouseParallax from "../ui/MouseParallax";
 import Magnetic from "../ui/Magnetic";
-import GlobeVisualization from "../ui/GlobeVisualization";
+import Globe3D from "../3d/Globe3D";
 
 interface HeroSectionProps {
+  currentLayout?: "premium" | "eco";
   isMobile: boolean;
   isLowEnd: boolean;
   heroImageY: any;
@@ -48,6 +49,7 @@ function InteractiveLetters({ text, className, mousePos }: { text: string; class
 
 // These are placeholders for decorative elements
 export default function HeroSection({ 
+  currentLayout,
   isMobile, 
   isLowEnd, 
   heroImageY, 
@@ -114,7 +116,7 @@ export default function HeroSection({
       {/* Globe Visualization - Center Piece */}
       <div className="absolute inset-0 z-20 flex items-center justify-center">
         <div className="w-full h-full max-w-5xl mx-auto opacity-40">
-          <GlobeVisualization />
+          <Globe3D isMobile={isMobile} showOverlay={false} currentLayout={currentLayout} />
         </div>
       </div>
 
