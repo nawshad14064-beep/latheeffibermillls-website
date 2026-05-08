@@ -24,7 +24,7 @@ export const galleryImages = [
   },
   {
     id: 3,
-    url: "https://images.unsplash.com/photo-1590593162211-f98f76d28ec5?auto=format&fit=crop&q=80&w=1200",
+    url: "https://lh3.googleusercontent.com/d/14hxJTspVDJJpgoH_lcuBCZe0B9vO1Zjo",
     title: "Twisted Coir Fiber",
     description: "Final processed twisted fiber ready for export.",
     category: "products",
@@ -45,5 +45,13 @@ export const galleryImages = [
     description: "Sustainably managed plantations in the coconut triangle.",
     category: "plantation",
     span: "md:col-span-4"
+  },
+  {
+    id: 6,
+    url: "https://lh3.googleusercontent.com/d/1jdTc4eMMI358PELXGnyWMZODSTezh8MZ",
+    title: "Coir Rolls & Logs",
+    description: "Premium coir rolls manufactured for soil bio-engineering and erosion control.",
+    category: "products",
+    span: "md:col-span-8"
   }
 ];

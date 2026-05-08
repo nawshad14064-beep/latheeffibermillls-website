@@ -14,7 +14,7 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
     {
       title: "Twisted Coir Fiber",
       category: "Industrial Raw Material",
-      image: "https://images.unsplash.com/photo-1590593162211-f98f76d28ec5?auto=format&fit=crop&q=80&w=800",
+      image: "https://lh3.googleusercontent.com/d/14hxJTspVDJJpgoH_lcuBCZe0B9vO1Zjo",
       description: "Highly resilient fiber used in mattress and automotive upholstery, processed with precision for global standards."
     },
     {

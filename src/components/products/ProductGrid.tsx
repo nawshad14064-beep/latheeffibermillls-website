@@ -11,7 +11,7 @@ const products = [
   {
     id: "twisted-fiber",
     title: "Twisted Coir Fiber",
-    image: "https://images.unsplash.com/photo-1590593162211-f98f76d28ec5?auto=format&fit=crop&q=80&w=1200",
+    image: "https://lh3.googleusercontent.com/d/14hxJTspVDJJpgoH_lcuBCZe0B9vO1Zjo",
     description: "Our flagship product. Premium quality twisted fiber processed for maximum durability and versatility in industrial applications.",
     tag: "Best Seller",
     specs: [
@@ -33,7 +33,7 @@ const products = [
   {
     id: "coir-rolls",
     title: "Coir Rolls",
-    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1200",
+    image: "https://lh3.googleusercontent.com/d/1jdTc4eMMI358PELXGnyWMZODSTezh8MZ",
     description: "100% natural and biodegradable rolls designed for superior erosion control and sustainable agricultural landscaping.",
     tag: "Eco-Solution",
     specs: [

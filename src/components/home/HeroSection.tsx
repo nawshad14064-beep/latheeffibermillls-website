@@ -80,9 +80,9 @@ export default function HeroSection({
           className="absolute inset-0 z-0"
         >
           <img 
-            src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&q=80&w=2000" 
+            src="https://lh3.googleusercontent.com/d/14hxJTspVDJJpgoH_lcuBCZe0B9vO1Zjo" 
             alt="Lanka Fiber Mills Background" 
-            className="w-full h-full object-cover opacity-10 grayscale brightness-110"
+            className="w-full h-full object-cover opacity-20 brightness-110"
             referrerPolicy="no-referrer"
           />
         </motion.div>
