@@ -12,23 +12,23 @@ export default function GlobalReachSection() {
             <div className="aspect-square rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-3xl border-4 md:border-8 border-theme-card">
               <img 
                 src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1200" 
-                alt="Global Logistics" 
+                alt="Lanka Fiber Mills Global Export Logistics - Shipping Sri Lankan Coir Products Worldwide" 
                 className="w-full h-full object-cover grayscale brightness-50"
                 referrerPolicy="no-referrer"
               />
             </div>
             <div className="absolute -bottom-6 md:-bottom-12 -right-4 md:-right-12 p-8 md:p-12 bg-accent-teal rounded-[3rem] md:rounded-[4rem] text-white shadow-2xl flex flex-col justify-center max-w-[200px] md:max-w-xs transition-all">
               <p className="text-4xl md:text-6xl font-bold mb-2 md:mb-4 tracking-tighter">15+</p>
-              <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] leading-relaxed">Global Shipping Destinations</p>
+              <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.5em] leading-relaxed">Global Shipping Destinations Including Middle East & Europe</p>
             </div>
           </div>
 
           <div className="space-y-12 md:space-y-16 lg:pl-12 order-1 lg:order-2">
             <div className="space-y-6 md:space-y-8">
-              <h2 className="text-accent-teal font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px]">Global Logistics</h2>
+              <h2 className="text-accent-teal font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px]">Global Coir Logistics</h2>
               <h3 className="text-4xl md:text-8xl font-bold text-theme-title font-serif leading-[1] md:leading-[0.9] tracking-tighter">Beyond <br /> <span className="text-accent-teal italic">Boundaries</span></h3>
               <p className="text-base md:text-xl text-theme-subtitle font-light leading-relaxed max-w-lg">
-                Strategically located near major shipping routes, we provide seamless door-to-door delivery across Europe, Asia, and North America.
+                As a premier Sri Lankan coir fiber supplier, we provide seamless door-to-door delivery across Europe, the Middle East, Asia, and North America.
               </p>
             </div>
 

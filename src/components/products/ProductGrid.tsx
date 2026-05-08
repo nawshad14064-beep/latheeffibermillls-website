@@ -12,7 +12,8 @@ const products = [
     id: "twisted-fiber",
     title: "Twisted Coir Fiber",
     image: "https://lh3.googleusercontent.com/d/14hxJTspVDJJpgoH_lcuBCZe0B9vO1Zjo",
-    description: "Our flagship product. Premium quality twisted fiber processed for maximum durability and versatility in industrial applications.",
+    alt: "Premium Sri Lankan Twisted Coir Fiber for Industrial Upholstery",
+    description: "Our flagship product. Export-grade premium twisted fiber processed from authentic Sri Lankan coconut husks for maximum durability and industrial versatility.",
     tag: "Best Seller",
     specs: [
       { label: "Moisture", value: "15% - 18% Max" },
@@ -21,9 +22,10 @@ const products = [
   },
   {
     id: "mixed-fiber",
-    title: "Mixed Fiber",
+    title: "Mixed Coir Fiber",
     image: "https://images.unsplash.com/photo-1550537687-c91072c4792d?auto=format&fit=crop&q=80&w=1200",
-    description: "Export quality mixed fiber with low impurity levels. A cost-effective solution for upholstery and bedding industries.",
+    alt: "Industrial Grade Mixed Coir Fiber for Mattresses and Bedding",
+    description: "Export quality Sri Lankan mixed coir fiber with low impurity levels. A cost-effective, sustainable solution for upholstery and bedding industries.",
     tag: "Industrial Grade",
     specs: [
       { label: "Quality", value: "Export Standard" },
@@ -32,9 +34,10 @@ const products = [
   },
   {
     id: "coir-rolls",
-    title: "Coir Rolls",
+    title: "Erosion Control Coir Rolls",
     image: "https://lh3.googleusercontent.com/d/1jdTc4eMMI358PELXGnyWMZODSTezh8MZ",
-    description: "100% natural and biodegradable rolls designed for superior erosion control and sustainable agricultural landscaping.",
+    alt: "Biodegradable Coir Rolls for Erosion Control and Sustainable Landscaping",
+    description: "100% natural, biodegradable Sri Lankan coir rolls designed for superior soil bio-engineering and sustainable agricultural landscaping.",
     tag: "Eco-Solution",
     specs: [
       { label: "Application", value: "Agriculture" },
@@ -43,9 +46,10 @@ const products = [
   },
   {
     id: "fiber-pith",
-    title: "Fiber Pith Products",
+    title: "Premium Coir Pith",
     image: "https://images.unsplash.com/photo-1592150621344-c7943424ad28?auto=format&fit=crop&q=80&w=1200",
-    description: "High-expansion coir pith blocks. The perfect organic growing medium for modern hydroponics and commercial nurseries.",
+    alt: "Washed and Compressed Coir Pith Coco Peat for Hydroponics",
+    description: "High-expansion coir pith (coco peat) blocks from Sri Lanka. The perfect organic growing medium for modern hydroponics and commercial nurseries.",
     tag: "Horticulture",
     specs: [
       { label: "Type", value: "Washed / Unwashed" },
@@ -104,7 +108,7 @@ export default function ProductGrid() {
             <div className="absolute inset-0">
               <img 
                 src={product.image} 
-                alt={product.title} 
+                alt={product.alt || product.title} 
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s]"
                 referrerPolicy="no-referrer"
                 loading="lazy"

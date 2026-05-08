@@ -81,7 +81,7 @@ export default function HeroSection({
         >
           <img 
             src="https://lh3.googleusercontent.com/d/14hxJTspVDJJpgoH_lcuBCZe0B9vO1Zjo" 
-            alt="Lanka Fiber Mills Background" 
+            alt="Lanka Fiber Mills - Premium Sri Lankan Coir Fiber Production Facility" 
             className="w-full h-full object-cover opacity-20 brightness-110"
             referrerPolicy="no-referrer"
           />
@@ -101,13 +101,13 @@ export default function HeroSection({
               transition={{ duration: 2, ease: "easeOut" }}
               className="text-[6rem] md:text-[25rem] font-black uppercase tracking-[-0.08em] text-accent-gold select-none font-display leading-none"
             >
-              LEGACY
+              Lanka Fiber
             </motion.h1>
           </MouseParallax>
         ) : (
           <div className="w-full text-center opacity-5">
             <h1 className="text-[6rem] md:text-[25rem] font-black uppercase tracking-[-0.08em] text-accent-gold select-none font-display leading-none">
-              LEGACY
+              Lanka Fiber
             </h1>
           </div>
         )}

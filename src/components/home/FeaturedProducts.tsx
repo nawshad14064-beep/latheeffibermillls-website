@@ -15,12 +15,14 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
       title: "Twisted Coir Fiber",
       category: "Industrial Raw Material",
       image: "https://lh3.googleusercontent.com/d/14hxJTspVDJJpgoH_lcuBCZe0B9vO1Zjo",
+      alt: "LFM Premium Twisted Coir Fiber - Commercial Grade Industrial Material",
       description: "Highly resilient fiber used in mattress and automotive upholstery, processed with precision for global standards."
     },
     {
       title: "Natural Mattress Fiber",
       category: "Home & Hospitality",
       image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800",
+      alt: "Eco-friendly Natural Coir Fiber for Premium Mattress Production",
       description: "Pure, sun-dried coir fiber offering exceptional breathability and structural integrity for premium bedding."
     }
   ];
@@ -30,11 +32,11 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 md:gap-12 mb-20 md:mb-32">
         <div className="space-y-6 md:space-y-10">
           <div className="space-y-3 md:space-y-4">
-            <h2 className="text-accent-gold font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px]">Pure Resonance</h2>
-            <h3 className="text-4xl md:text-[8rem] font-bold text-theme-title font-serif leading-[0.9] md:leading-[0.8] tracking-tighter uppercase">Our <br /> <span className="text-accent-gold italic">Fiber</span></h3>
+            <h2 className="text-accent-gold font-bold uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px]">Premium Grade Exports</h2>
+            <h3 className="text-4xl md:text-[8rem] font-bold text-theme-title font-serif leading-[0.9] md:leading-[0.8] tracking-tighter uppercase">Sri Lankan <br /> <span className="text-accent-gold italic">Coir Fiber</span></h3>
           </div>
           <p className="text-base md:text-xl text-theme-subtitle font-light max-w-lg leading-relaxed">
-            Distinguished by its golden hue and unmatched durability, our Sri Lankan coir fiber serves essential roles in global high-precision manufacturing.
+            As a leading Sri Lankan coir exporter, we provide distinguished golden-hue fibers with unmatched durability for global high-precision manufacturing.
           </p>
         </div>
         
@@ -65,7 +67,7 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
             <div className="relative aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden mb-8 md:mb-12 shadow-3xl border-4 md:border-8 border-theme-card">
               <img 
                 src={product.image} 
-                alt={product.title} 
+                alt={product.alt || product.title} 
                 className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
                 referrerPolicy="no-referrer"
               />
