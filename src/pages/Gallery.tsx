@@ -3,9 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Camera, Image as ImageIcon, Maximize2, ExternalLink, Palmtree } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { galleryCategories, galleryImages } from "../data/galleryData";
+import useSound from "use-sound";
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = React.useState("all");
+
+  // Sound effects
+  const [playHover] = useSound("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3", { volume: 0.1 });
+  const [playClick] = useSound("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3", { volume: 0.2 });
 
   const filteredImages = activeCategory === "all" 
     ? galleryImages 
@@ -49,26 +54,33 @@ export default function Gallery() {
           </motion.p>
         </div>
 
-        {/* Category Filter */}
+        {/* Category Filter - Premium Tabs */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-4 mb-24 p-4 glass rounded-[4rem] max-w-5xl mx-auto border-white/80 shadow-3xl"
+          className="flex flex-wrap justify-center gap-2 mb-24 p-2 glass-ios rounded-[3rem] max-w-4xl mx-auto border-white/40 shadow-2xl relative z-20"
         >
           {galleryCategories.map((cat) => (
             <motion.button
               key={cat.id}
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => {
+                setActiveCategory(cat.id);
+                playClick();
+              }}
+              onMouseEnter={() => playHover()}
               className={cn(
-                "px-12 py-5 rounded-full text-[10px] font-bold uppercase tracking-[0.4em] transition-all duration-500",
-                activeCategory === cat.id 
-                  ? "bg-primary text-white shadow-2xl shadow-primary/30" 
-                  : "text-primary hover:text-accent-gold hover:bg-white/50"
+                "px-10 py-5 rounded-full text-[10px] font-bold uppercase tracking-[0.4em] transition-colors duration-500 relative",
+                activeCategory === cat.id ? "text-white" : "text-primary/60 hover:text-primary"
               )}
             >
+              {activeCategory === cat.id && (
+                <motion.div
+                  layoutId="active-tab"
+                  className="absolute inset-0 bg-primary rounded-full -z-10 shadow-xl shadow-primary/20"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
               {cat.name}
             </motion.button>
           ))}

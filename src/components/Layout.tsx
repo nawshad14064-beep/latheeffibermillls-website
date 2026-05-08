@@ -13,6 +13,7 @@ import Magnetic from "./ui/Magnetic";
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Products", href: "/products" },
+  { name: "Gallery", href: "/gallery" },
   { name: "AI Assistant", href: "#ai", isAI: true },
   { name: "Quality", href: "/quality" },
   { name: "Contact", href: "/contact" },

@@ -8,6 +8,7 @@ import useSound from "use-sound";
 const menuItems = [
   { icon: Home, label: "Home", href: "/" },
   { icon: Package, label: "Products", href: "/products" },
+  { icon: Image, label: "Gallery", href: "/gallery" },
   { icon: Globe, label: "Export", href: "/export" },
   { icon: Phone, label: "Quote", href: "/get-quote" },
 ];
