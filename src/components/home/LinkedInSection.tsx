@@ -20,7 +20,7 @@ export default function LinkedInSection({ playClick, playHover }: LinkedInSectio
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-16 text-center md:text-left">
             <div className="w-28 h-28 md:w-48 md:h-48 rounded-[2rem] md:rounded-[3rem] bg-accent-gold overflow-hidden shrink-0 shadow-2xl border-4 border-theme-card">
               <img 
-                src="https://media.licdn.com/dms/image/v2/C5603AQGEf5vUvuvXAg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1660370631622?e=1746057600&v=beta&t=7l3z2i8q9o4J0J5U7l3z2i8q9o4J0J5U7l3z2i8q9o4J0J" 
+                src="https://lh3.googleusercontent.com/d/1UdXBQsOJ2Osw8VJYGwZ_ateIlp2BH8PX" 
                 alt="Nawshad Latheef" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
