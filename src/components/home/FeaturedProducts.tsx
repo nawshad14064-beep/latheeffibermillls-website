@@ -21,7 +21,7 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
     {
       title: "Natural Mattress Fiber",
       category: "Home & Hospitality",
-      image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800",
+      image: "https://lh3.googleusercontent.com/d/1C93c2r1h-nPb84-gA4ZGQVnz9FRykpj3",
       alt: "Eco-friendly Natural Coir Fiber for Premium Mattress Production",
       description: "Pure, sun-dried coir fiber offering exceptional breathability and structural integrity for premium bedding."
     }

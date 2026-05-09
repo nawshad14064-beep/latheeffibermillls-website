@@ -23,7 +23,7 @@ const products = [
   {
     id: "mixed-fiber",
     title: "Mixed Coir Fiber",
-    image: "https://images.unsplash.com/photo-1550537687-c91072c4792d?auto=format&fit=crop&q=80&w=1200",
+    image: "https://lh3.googleusercontent.com/d/1C93c2r1h-nPb84-gA4ZGQVnz9FRykpj3",
     alt: "Industrial Grade Mixed Coir Fiber for Mattresses and Bedding",
     description: "Export quality Sri Lankan mixed coir fiber with low impurity levels. A cost-effective, sustainable solution for upholstery and bedding industries.",
     tag: "Industrial Grade",

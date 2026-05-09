@@ -53,5 +53,13 @@ export const galleryImages = [
     description: "Premium coir rolls manufactured for soil bio-engineering and erosion control.",
     category: "products",
     span: "md:col-span-8"
+  },
+  {
+    id: 7,
+    url: "https://lh3.googleusercontent.com/d/1C93c2r1h-nPb84-gA4ZGQVnz9FRykpj3",
+    title: "Natural Mattress Fiber",
+    description: "Premium quality sun-dried fiber for global mattress production.",
+    category: "products",
+    span: "md:col-span-4"
   }
 ];
