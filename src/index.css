@@ -32,7 +32,6 @@
 @layer base {
   body {
     @apply font-sans antialiased bg-[#0B0B0F] text-light-grey selection:bg-accent-gold selection:text-primary transition-colors duration-700;
-    animation: fadeIn 2s ease;
   }
 
   /* Layout Eco Overrides */
@@ -183,11 +182,11 @@
   }
 
   .glass {
-    @apply bg-black/60 backdrop-blur-xl border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.6)];
+    @apply bg-black/60 backdrop-blur-md border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.6)];
   }
   
   .glass-ios {
-    @apply bg-black/40 backdrop-blur-[40px] border border-white/5 shadow-2xl relative overflow-hidden;
+    @apply bg-black/40 backdrop-blur-[20px] border border-white/5 shadow-2xl relative overflow-hidden;
     box-shadow: 
       0 8px 32px 0 rgba(0, 0, 0, 0.5),
       inset 0 0 0 1px rgba(255, 255, 255, 0.02);

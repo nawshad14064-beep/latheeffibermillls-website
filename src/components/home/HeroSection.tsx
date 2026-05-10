@@ -94,7 +94,7 @@ export default function HeroSection({
       {/* Big Heading Behind Model - Medium Parallax */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         {!isLowEnd ? (
-          <MouseParallax strength={30} className="w-full text-center">
+          <MouseParallax strength={20} className="w-full text-center">
             <motion.h1 
               initial={{ opacity: 0, scale: 0.9, y: 50 }}
               animate={{ opacity: 0.03, scale: 1, y: 0 }}
@@ -129,7 +129,7 @@ export default function HeroSection({
         >
           {/* Trust Badge - Fast Parallax */}
           {!isLowEnd ? (
-            <MouseParallax strength={60} className="pointer-events-auto flex justify-center">
+            <MouseParallax strength={40} className="pointer-events-auto flex justify-center">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -151,7 +151,7 @@ export default function HeroSection({
           
           <div className="pointer-events-auto px-4">
             {!isLowEnd ? (
-              <MouseParallax strength={40}>
+              <MouseParallax strength={20}>
                 <h2 className="text-4xl md:text-[8rem] font-bold text-hero-title font-display leading-[0.95] md:leading-[0.9] tracking-tighter uppercase drop-shadow-2xl perspective-1000">
                   <InteractiveLetters text="Sri Lanka's Finest" mousePos={mousePos} /> <br />
                   <InteractiveLetters 

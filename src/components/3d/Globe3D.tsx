@@ -216,7 +216,7 @@ export default function Globe3D({ isMobile = false, showOverlay = true, currentL
       "w-full h-full min-h-[700px] relative bg-transparent rounded-[4rem] overflow-hidden border border-white/5 transition-all duration-700 group",
       layout === "premium" ? "shadow-2xl" : "shadow-green-900/10 shadow-xl"
     )}>
-      <Canvas dpr={[1, isMobile ? 1 : 1.2]} gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }}>
+      <Canvas dpr={[1, isMobile ? 1 : 1.1]} gl={{ antialias: false, alpha: true, powerPreference: "high-performance", precision: "lowp" }}>
         <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={30} />
         <OrbitControls 
           enableZoom={false} 
