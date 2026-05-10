@@ -3,6 +3,8 @@ import Lenis from "lenis";
 
 export default function SmoothScroll({ children, isLowEnd = false }: { children: React.ReactNode; isLowEnd?: boolean }) {
   React.useEffect(() => {
+    if (isLowEnd) return;
+
     const lenis = new Lenis({
       duration: isLowEnd ? 0.8 : 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

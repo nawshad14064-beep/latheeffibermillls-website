@@ -70,6 +70,8 @@ export default function FeaturedProducts({ playClick, playHover }: FeaturedProdu
                 alt={product.alt || product.title} 
                 className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70 md:opacity-60 group-hover:opacity-40 transition-opacity" />
               

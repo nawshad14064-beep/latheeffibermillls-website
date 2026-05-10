@@ -29,28 +29,28 @@ function FiberModel({ type = "roll", isMobile = false }: CoirFiber3DProps) {
   return (
     <group>
       {type === "roll" && (
-        <mesh ref={meshRef} castShadow>
-          <cylinderGeometry args={[1, 1, 3, isMobile ? 32 : 64]} />
+        <mesh ref={meshRef} castShadow={!isMobile}>
+          <cylinderGeometry args={[1, 1, 3, isMobile ? 12 : 32]} />
           <MeshDistortMaterial 
             color="#D4AF37" 
-            distort={isMobile ? 0.1 : 0.2} 
-            speed={isMobile ? 1 : 2} 
-            roughness={0.4} 
-            metalness={0.8}
+            distort={isMobile ? 0.05 : 0.15} 
+            speed={isMobile ? 0.5 : 1.5} 
+            roughness={0.5} 
+            metalness={0.6}
             emissive="#D4AF37"
-            emissiveIntensity={0.1}
+            emissiveIntensity={0.05}
           />
         </mesh>
       )}
       {type === "rope" && (
-        <mesh ref={meshRef} castShadow>
-          <torusKnotGeometry args={[1, 0.3, isMobile ? 128 : 256, isMobile ? 16 : 32]} />
+        <mesh ref={meshRef} castShadow={!isMobile}>
+          <torusKnotGeometry args={[1, 0.3, isMobile ? 64 : 128, isMobile ? 8 : 16]} />
           <MeshWobbleMaterial 
             color="#8B4513" 
-            factor={isMobile ? 0.3 : 0.5} 
-            speed={1} 
-            roughness={0.3}
-            metalness={0.7}
+            factor={isMobile ? 0.2 : 0.4} 
+            speed={isMobile ? 0.5 : 1} 
+            roughness={0.5}
+            metalness={0.5}
           />
         </mesh>
       )}

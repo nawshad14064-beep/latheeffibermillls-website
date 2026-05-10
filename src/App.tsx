@@ -45,7 +45,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <LoadingScreen />
-      <CustomCursor isLowEnd={isLowEnd} />
+      {!isLowEnd && <CustomCursor isLowEnd={isLowEnd} />}
       <SmoothScroll isLowEnd={isLowEnd}>
         <FloatingActionDock />
         <AnimatedRoutes />

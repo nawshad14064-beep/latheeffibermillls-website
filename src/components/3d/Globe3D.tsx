@@ -65,7 +65,7 @@ function ExportArc({ start, end, radius, isMobile, color }: { start: number[], e
   
   return (
     <mesh ref={meshRef}>
-      <tubeGeometry args={[curve, isMobile ? 32 : 64, 0.008, 8, false]} />
+      <tubeGeometry args={[curve, isMobile ? 16 : 32, 0.008, 6, false]} />
       <meshBasicMaterial color={color} transparent opacity={0.2} />
     </mesh>
   );
@@ -94,7 +94,7 @@ function Globe({ isMobile, layout, isDarkMode }: { isMobile: boolean, layout: "p
     <group ref={groupRef}>
       {/* Main Globe - Realistic Dark Base */}
       <mesh ref={globeRef}>
-        <sphereGeometry args={[radius, isMobile ? 32 : 128, isMobile ? 32 : 128]} />
+        <sphereGeometry args={[radius, isMobile ? 32 : 64, isMobile ? 32 : 64]} />
         <meshStandardMaterial 
           map={worldMap}
           color={layout === "premium" ? "#0a0a0a" : (isDarkMode ? "#020a05" : "#052e16")}
@@ -216,7 +216,7 @@ export default function Globe3D({ isMobile = false, showOverlay = true, currentL
       "w-full h-full min-h-[700px] relative bg-transparent rounded-[4rem] overflow-hidden border border-white/5 transition-all duration-700 group",
       layout === "premium" ? "shadow-2xl" : "shadow-green-900/10 shadow-xl"
     )}>
-      <Canvas dpr={[1, isMobile ? 1 : 1.5]} gl={{ antialias: true, alpha: true }}>
+      <Canvas dpr={[1, isMobile ? 1 : 1.2]} gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }}>
         <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={30} />
         <OrbitControls 
           enableZoom={false} 

@@ -8,6 +8,7 @@ import { useDevice } from "../hooks/useDevice";
 import HeroSection from "../components/home/HeroSection";
 
 // Lazy Sections
+import LazySection from "../components/home/LazySection";
 const JourneySection = lazy(() => import("../components/home/JourneySection"));
 const FeaturedProducts = lazy(() => import("../components/home/FeaturedProducts"));
 const GlobalReachSection = lazy(() => import("../components/home/GlobalReachSection"));
@@ -15,7 +16,7 @@ const GalleryPreview = lazy(() => import("../components/home/GalleryPreview"));
 const LinkedInSection = lazy(() => import("../components/home/LinkedInSection"));
 const FinalCTA = lazy(() => import("../components/home/FinalCTA"));
 
-const LazySection = ({ children }: { children: React.ReactNode }) => (
+const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<div className="h-96 w-full bg-[#0B0B0F]/50 animate-pulse rounded-[3rem]" />}>
     {children}
   </Suspense>
@@ -69,27 +70,39 @@ export default function Home() {
       />
       
       <LazySection>
-        <JourneySection />
+        <SuspenseWrapper>
+          <JourneySection />
+        </SuspenseWrapper>
       </LazySection>
 
       <LazySection>
-        <FeaturedProducts playClick={playClick} playHover={playHover} />
+        <SuspenseWrapper>
+          <FeaturedProducts playClick={playClick} playHover={playHover} />
+        </SuspenseWrapper>
       </LazySection>
 
       <LazySection>
-        <GlobalReachSection />
+        <SuspenseWrapper>
+          <GlobalReachSection />
+        </SuspenseWrapper>
       </LazySection>
 
       <LazySection>
-        <GalleryPreview playClick={playClick} playHover={playHover} />
+        <SuspenseWrapper>
+          <GalleryPreview playClick={playClick} playHover={playHover} />
+        </SuspenseWrapper>
       </LazySection>
 
       <LazySection>
-        <LinkedInSection playClick={playClick} playHover={playHover} />
+        <SuspenseWrapper>
+          <LinkedInSection playClick={playClick} playHover={playHover} />
+        </SuspenseWrapper>
       </LazySection>
 
       <LazySection>
-        <FinalCTA playClick={playClick} playHover={playHover} />
+        <SuspenseWrapper>
+          <FinalCTA playClick={playClick} playHover={playHover} />
+        </SuspenseWrapper>
       </LazySection>
     </div>
   );

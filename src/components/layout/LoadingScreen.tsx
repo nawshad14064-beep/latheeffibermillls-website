@@ -6,16 +6,21 @@ export default function LoadingScreen() {
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
+    const startTime = Date.now();
+    const duration = 1000; // 1 second target for initial load
+
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setLoading(false), 500);
-          return 100;
-        }
-        return prev + 2;
-      });
-    }, 30);
+      const elapsed = Date.now() - startTime;
+      const calculatedProgress = Math.min(Math.floor((elapsed / duration) * 100), 100);
+      
+      setProgress(calculatedProgress);
+
+      if (elapsed >= duration) {
+        clearInterval(interval);
+        setTimeout(() => setLoading(false), 200);
+      }
+    }, 16); // 60fps check
+
     return () => clearInterval(interval);
   }, []);
 
