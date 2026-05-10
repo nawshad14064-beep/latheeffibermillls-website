@@ -8,7 +8,7 @@ import ChatAssistant from "./ChatAssistant";
 export default function FloatingActionDock() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [currentLayout, setCurrentLayout] = useState<"premium" | "eco">("eco");
+  const [currentLayout, setCurrentLayout] = useState<"premium" | "eco">("premium");
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const switchLayout = () => {

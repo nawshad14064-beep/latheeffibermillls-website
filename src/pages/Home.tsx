@@ -24,7 +24,7 @@ const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
 
 export default function Home() {
   const { isMobile, isLowEnd } = useDevice();
-  const [currentLayout, setCurrentLayout] = React.useState<"premium" | "eco">("eco");
+  const [currentLayout, setCurrentLayout] = React.useState<"premium" | "eco">("premium");
   const [isDarkMode, setIsDarkMode] = React.useState(true);
 
   React.useEffect(() => {
