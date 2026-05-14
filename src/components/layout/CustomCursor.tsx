@@ -5,7 +5,7 @@ export default function CustomCursor({ isLowEnd = false }: { isLowEnd?: boolean 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const [isPointer, setIsPointer] = React.useState(false);
-  const [currentLayout, setCurrentLayout] = React.useState<"premium" | "eco">("eco");
+  const [currentLayout, setCurrentLayout] = React.useState<"premium" | "eco">("premium");
   const [isDarkMode, setIsDarkMode] = React.useState(true);
 
   const springConfig = { damping: 25, stiffness: 250 };

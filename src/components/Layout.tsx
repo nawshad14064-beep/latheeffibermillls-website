@@ -21,7 +21,7 @@ const navItems = [
 
 export default function Layout() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [currentLayout, setCurrentLayout] = useState<"premium" | "eco">("eco");
+  const [currentLayout, setCurrentLayout] = useState<"premium" | "eco">("premium");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
@@ -50,8 +50,10 @@ export default function Layout() {
 
   useEffect(() => {
     if (currentLayout === "eco") {
-      document.documentElement.style.setProperty("--accent-gold", "#15803d"); // Forest Green
+      document.documentElement.style.setProperty("--accent-gold", "#22c55e"); // Bright Green
       document.body.classList.add("layout-eco");
+      // Optionally switch to light mode for eco if requested, 
+      // but for now we'll keep the user's preferred dark/light state
     } else {
       document.documentElement.style.setProperty("--accent-gold", "#D4AF37"); // Premium Gold
       document.body.classList.remove("layout-eco");
@@ -59,7 +61,7 @@ export default function Layout() {
   }, [currentLayout]);
 
   const toggleLayout = () => {
-    setCurrentLayout(prev => prev === "premium" ? "eco" : "premium");
+    window.dispatchEvent(new CustomEvent("switch-layout"));
     playClick();
   };
   const [language, setLanguage] = useState("EN");
@@ -321,7 +323,7 @@ export default function Layout() {
       </header>
 
       <main className="flex-grow">
-        <Suspense fallback={<div className="h-[60vh] flex items-center justify-center bg-[#0B0B0F]"><div className="w-12 h-12 border-4 border-accent-gold border-t-transparent rounded-full animate-spin" /></div>}>
+        <Suspense fallback={<div className="h-[60vh] flex items-center justify-center bg-primary"><div className="w-12 h-12 border-4 border-accent-gold border-t-transparent rounded-full animate-spin" /></div>}>
           <Outlet />
         </Suspense>
       </main>

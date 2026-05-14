@@ -6,7 +6,7 @@ export default function AboutHero() {
       <div className="relative rounded-[3rem] md:rounded-[6rem] overflow-hidden h-[500px] md:h-[700px] shadow-3xl border-[8px] md:border-[16px] border-white group">
         <img 
           src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&q=60&w=2000" 
-          alt="Authentic Sri Lankan Coconut Plantation - The Source of Lanka Fiber Mills Premium Coir" 
+          alt="Authentic Sri Lankan Coconut Plantation - The Source of Latheef Fiber Mills Premium Coir" 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[3s]"
           referrerPolicy="no-referrer"
         />

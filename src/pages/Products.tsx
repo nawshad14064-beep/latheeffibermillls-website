@@ -16,19 +16,19 @@ export default function Products() {
       <ProductHeader />
 
       <LazySection>
-        <React.Suspense fallback={<div className="h-[800px] bg-[#050505] animate-pulse" />}>
+        <React.Suspense fallback={<div className="h-[800px] bg-theme-card animate-pulse" />}>
           <ProductGrid />
         </React.Suspense>
       </LazySection>
 
       <LazySection>
-        <React.Suspense fallback={<div className="h-[600px] bg-primary animate-pulse" />}>
+        <React.Suspense fallback={<div className="h-[600px] bg-theme-card animate-pulse" />}>
           <QualityStandards />
         </React.Suspense>
       </LazySection>
 
       <LazySection>
-        <React.Suspense fallback={<div className="h-[500px] bg-[#050505] animate-pulse" />}>
+        <React.Suspense fallback={<div className="h-[500px] bg-theme-card animate-pulse" />}>
           <ProductFAQ />
         </React.Suspense>
       </LazySection>

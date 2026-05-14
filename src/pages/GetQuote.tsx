@@ -22,9 +22,32 @@ export default function GetQuote() {
   const nextStep = () => setStep(s => s + 1);
   const prevStep = () => setStep(s => s - 1);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Failed to send quote request. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error sending quote request:", error);
+      alert("An error occurred. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const steps = [
@@ -34,7 +57,7 @@ export default function GetQuote() {
   ];
 
   return (
-    <div className="pt-32 pb-24 bg-[#050505] min-h-screen">
+    <div className="pt-32 pb-24 bg-mesh min-h-screen">
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 space-y-6">
@@ -230,9 +253,10 @@ export default function GetQuote() {
                     ) : (
                       <Button 
                         type="submit"
+                        disabled={isSubmitting}
                         className="bg-accent-gold text-primary rounded-full px-12 md:px-20 h-16 md:h-20 text-base md:text-xl font-bold hover:bg-white shadow-[0_20px_50px_rgba(212,175,55,0.3)] transition-all"
                       >
-                        Generate Quote
+                        {isSubmitting ? "Sending..." : "Generate Quote"}
                       </Button>
                     )}
                   </div>

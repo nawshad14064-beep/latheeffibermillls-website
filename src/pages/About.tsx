@@ -17,19 +17,19 @@ export default function About() {
       <AboutHero />
 
       <LazySection>
-        <React.Suspense fallback={<div className="h-[800px] bg-[#050505] animate-pulse" />}>
+        <React.Suspense fallback={<div className="h-[800px] bg-theme-card animate-pulse" />}>
           <HeritageSection />
         </React.Suspense>
       </LazySection>
 
       <LazySection>
-        <React.Suspense fallback={<div className="h-[600px] bg-primary animate-pulse" />}>
+        <React.Suspense fallback={<div className="h-[600px] bg-theme-card animate-pulse" />}>
           <MissionVision />
         </React.Suspense>
       </LazySection>
 
       <LazySection>
-        <React.Suspense fallback={<div className="h-[500px] bg-[#050505] animate-pulse" />}>
+        <React.Suspense fallback={<div className="h-[500px] bg-theme-card animate-pulse" />}>
           <CoreValues />
         </React.Suspense>
       </LazySection>

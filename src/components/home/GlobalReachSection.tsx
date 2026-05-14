@@ -12,7 +12,7 @@ export default function GlobalReachSection() {
             <div className="aspect-square rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-3xl border-4 md:border-8 border-theme-card">
               <img 
                 src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1200" 
-                alt="Lanka Fiber Mills Global Export Logistics - Shipping Sri Lankan Coir Products Worldwide" 
+                alt="Latheef Fiber Mills Global Export Logistics - Shipping Sri Lankan Coir Products Worldwide" 
                 className="w-full h-full object-cover grayscale brightness-50"
                 referrerPolicy="no-referrer"
               />

@@ -77,56 +77,54 @@ Lead Generation:
 
   // API route for inquiries
   app.post("/api/inquiry", async (req, res) => {
-    const { name, email, country, product, message } = req.body;
+    const { name, email, country, product, message, subject: bodySubject } = req.body;
 
-    console.log("Receiving inquiry:", { name, email, country, product, message });
+    console.log("Receiving inquiry:", { name, email, country, product, message, bodySubject });
 
-    // Configure transporter
+    // Configure transporter - Using direct credentials as fallback
+    const smtpUser = process.env.SMTP_USER || "nawshad14064@gmail.com";
+    const smtpPass = process.env.SMTP_PASS || "wwqq xive fjei cfby";
+
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
-      port: parseInt(process.env.SMTP_PORT || "587"),
+      host: "smtp.gmail.com",
+      port: 587,
       secure: false,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: smtpUser,
+        pass: smtpPass,
       },
     });
 
     try {
-      const user = process.env.SMTP_USER;
-      const pass = process.env.SMTP_PASS;
-
-      if (!user || !pass || user.trim() === "" || pass.trim() === "") {
-        console.warn("SMTP credentials not configured or empty. Inquiry logged but not sent.");
-        console.log("Inquiry Content:", { name, email, country, product, message });
-        return res.status(200).json({ 
-          success: true, 
-          message: "Demo Mode: Inquiry logged to server console (Set SMTP_USER and SMTP_PASS in Settings to send real emails)" 
-        });
-      }
+      const emailSubject = bodySubject || `New Inquiry from ${name} - Latheef Fiber Mills`;
 
       await transporter.sendMail({
-        from: `"${name}" <${process.env.SMTP_USER}>`,
-        to: process.env.RECIPIENT_EMAIL || "nawshadniloofar@gmail.com",
+        from: `"Website Inquiry" <${smtpUser}>`,
+        to: process.env.RECIPIENT_EMAIL || "nawshad14064@gmail.com",
         replyTo: email,
-        subject: `New Inquiry from ${name} - Latheef Fiber Mills`,
+        subject: emailSubject,
         text: `
           New inquiry from website:
           Name: ${name}
           Email: ${email}
-          Country: ${country}
-          Product: ${product}
+          Country: ${country || 'N/A'}
+          Product: ${product || 'N/A'}
+          Subject: ${bodySubject || 'N/A'}
           Message: ${message}
         `,
         html: `
-          <h3>New Inquiry from Website</h3>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Country:</strong> ${country}</p>
-          <p><strong>Product:</strong> ${product}</p>
-          <p><strong>Message:</strong></p>
-          <div style="background: #f4f4f4; padding: 15px; border-radius: 8px;">
-            ${message}
+          <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
+            <h2 style="color: #d4af37;">New Inquiry from Website</h2>
+            <hr style="border: 0; border-top: 1px solid #eee;" />
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Country:</strong> ${country || 'N/A'}</p>
+            <p><strong>Product:</strong> ${product || 'N/A'}</p>
+            <p><strong>Subject:</strong> ${bodySubject || 'N/A'}</p>
+            <p><strong>Message:</strong></p>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid #d4af37;">
+              ${message.replace(/\n/g, '<br/>')}
+            </div>
           </div>
         `,
       });

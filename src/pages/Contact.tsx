@@ -10,15 +10,51 @@ import { cn } from "@/lib/utils";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          product: "General Contact", // Identifier for contact form
+          country: "Direct Contact"
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        alert("Failed to send message. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Error sending inquiry:", error);
+      alert("An error occurred. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="pt-32 pb-24 bg-[#050505]">
+    <div className="pt-32 pb-24 bg-mesh min-h-screen">
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 mb-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -91,26 +127,59 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-white/40 ml-4">Full Name</Label>
-                    <Input id="name" placeholder="John Doe" required className="h-16 rounded-full px-8 bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all" />
+                    <Input 
+                      id="name" 
+                      placeholder="John Doe" 
+                      required 
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      disabled={isSubmitting}
+                      className="h-16 rounded-full px-8 bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all" 
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-white/40 ml-4">Email Address</Label>
-                    <Input id="email" type="email" placeholder="john@example.com" required className="h-16 rounded-full px-8 bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all" />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="john@example.com" 
+                      required 
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      disabled={isSubmitting}
+                      className="h-16 rounded-full px-8 bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all" 
+                    />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
                   <Label htmlFor="subject" className="text-xs font-bold uppercase tracking-widest text-white/40 ml-4">Subject</Label>
-                  <Input id="subject" placeholder="Bulk Order Inquiry" required className="h-16 rounded-full px-8 bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all" />
+                  <Input 
+                    id="subject" 
+                    placeholder="Bulk Order Inquiry" 
+                    required 
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    disabled={isSubmitting}
+                    className="h-16 rounded-full px-8 bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all" 
+                  />
                 </div>
                 
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-white/40 ml-4">Message</Label>
-                  <Textarea id="message" placeholder="Tell us about your requirements..." required className="min-h-[200px] rounded-[2.5rem] p-8 bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all" />
+                  <Textarea 
+                    id="message" 
+                    placeholder="Tell us about your requirements..." 
+                    required 
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    disabled={isSubmitting}
+                    className="min-h-[200px] rounded-[2.5rem] p-8 bg-white/5 border-white/10 text-white focus:ring-2 focus:ring-accent-gold transition-all" 
+                  />
                 </div>
                 
-                <Button type="submit" size="lg" className="w-full bg-accent-gold hover:bg-white text-primary rounded-full h-20 text-xl font-bold shadow-2xl shadow-accent-gold/20 transition-all">
-                  Send Message
+                <Button type="submit" size="lg" disabled={isSubmitting} className="w-full bg-accent-gold hover:bg-white text-primary rounded-full h-20 text-xl font-bold shadow-2xl shadow-accent-gold/20 transition-all">
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             )}
