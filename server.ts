@@ -82,13 +82,13 @@ Lead Generation:
     console.log("Receiving inquiry:", { name, email, country, product, message, bodySubject });
 
     // Configure transporter - Using direct credentials as fallback
-    const smtpUser = process.env.SMTP_USER || "nawshad14064@gmail.com";
-    const smtpPass = process.env.SMTP_PASS || "wwqq xive fjei cfby";
+    const smtpUser = "nawshad14064@gmail.com";
+    const smtpPass = "wwqqxivefjeicfby";
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
+      port: 465,
+      secure: true,
       auth: {
         user: smtpUser,
         pass: smtpPass,
@@ -96,6 +96,10 @@ Lead Generation:
     });
 
     try {
+      // Verify transporter configuration
+      await transporter.verify();
+      console.log("SMTP Connection verified");
+
       const emailSubject = bodySubject || `New Inquiry from ${name} - Latheef Fiber Mills`;
 
       await transporter.sendMail({
