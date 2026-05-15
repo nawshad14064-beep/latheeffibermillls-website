@@ -83,12 +83,14 @@ Lead Generation:
 
     // Configure transporter - Using direct credentials as fallback
     const smtpUser = "nawshad14064@gmail.com";
-    const smtpPass = "wwqqxivefjeicfby";
+    const smtpPass = "wwqq xive fjei cfby".replace(/\s+/g, "");
 
+    console.log("Attempting SMTP connection with user:", smtpUser);
+    
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false, // Use STARTTLS
       auth: {
         user: smtpUser,
         pass: smtpPass,
@@ -96,13 +98,15 @@ Lead Generation:
     });
 
     try {
+      console.log("Verifying SMTP connection...");
       // Verify transporter configuration
       await transporter.verify();
-      console.log("SMTP Connection verified");
+      console.log("SMTP Connection verified successfully");
 
       const emailSubject = bodySubject || `New Inquiry from ${name} - Latheef Fiber Mills`;
 
-      await transporter.sendMail({
+      console.log("Sending email to:", process.env.RECIPIENT_EMAIL || "nawshad14064@gmail.com");
+      const info = await transporter.sendMail({
         from: `"Website Inquiry" <${smtpUser}>`,
         to: process.env.RECIPIENT_EMAIL || "nawshad14064@gmail.com",
         replyTo: email,
@@ -133,10 +137,21 @@ Lead Generation:
         `,
       });
 
+      console.log("Email sent! MessageID:", info.messageId);
       res.status(200).json({ success: true, message: "Email sent successfully" });
-    } catch (error) {
-      console.error("Error sending email:", error);
-      res.status(500).json({ success: false, error: "Failed to send email" });
+    } catch (error: any) {
+      console.error("CRITICAL SMTP ERROR:", {
+        message: error.message,
+        code: error.code,
+        command: error.command,
+        response: error.response,
+        stack: error.stack
+      });
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to send email", 
+        details: error.message 
+      });
     }
   });
 

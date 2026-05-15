@@ -43,7 +43,8 @@ export default function Contact() {
         setFormData({ name: "", email: "", subject: "", message: "" });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        alert("Failed to send message. Please try again later.");
+        const errorData = await response.json();
+        alert(`Failed to send message: ${errorData.details || "Please try again later."}`);
       }
     } catch (error) {
       console.error("Error sending inquiry:", error);

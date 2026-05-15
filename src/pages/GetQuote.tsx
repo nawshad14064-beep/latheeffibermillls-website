@@ -40,7 +40,8 @@ export default function GetQuote() {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        alert("Failed to send quote request. Please try again later.");
+        const errorData = await response.json();
+        alert(`Failed to send quote request: ${errorData.details || "Please try again later."}`);
       }
     } catch (error) {
       console.error("Error sending quote request:", error);
