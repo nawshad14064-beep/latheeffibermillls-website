@@ -38,12 +38,20 @@ export default function Contact() {
         }),
       });
 
+      const responseText = await response.text();
+      console.log("Server response:", responseText);
+
       if (response.ok) {
         setSubmitted(true);
         setFormData({ name: "", email: "", subject: "", message: "" });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        const errorData = await response.json();
+        let errorData;
+        try {
+          errorData = JSON.parse(responseText);
+        } catch (e) {
+          errorData = { details: responseText.substring(0, 100) };
+        }
         alert(`Failed to send message: ${errorData.details || "Please try again later."}`);
       }
     } catch (error: any) {

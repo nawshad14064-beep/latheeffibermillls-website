@@ -37,10 +37,18 @@ export default function GetQuote() {
         body: JSON.stringify(formData),
       });
 
+      const responseText = await response.text();
+      console.log("Server response:", responseText);
+
       if (response.ok) {
         setSubmitted(true);
       } else {
-        const errorData = await response.json();
+        let errorData;
+        try {
+          errorData = JSON.parse(responseText);
+        } catch (e) {
+          errorData = { details: responseText.substring(0, 100) };
+        }
         alert(`Failed to send quote request: ${errorData.details || "Please try again later."}`);
       }
     } catch (error: any) {

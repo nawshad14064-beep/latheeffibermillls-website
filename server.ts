@@ -15,7 +15,13 @@ async function startServer() {
   
   // Health check
   app.get("/api/health", (req, res) => {
+    console.log("Health check requested");
     res.json({ status: "ok", time: new Date().toISOString() });
+  });
+
+  // Test GET route
+  app.get("/api/inquiry", (req, res) => {
+    res.json({ message: "Inquiry API is active. Use POST to submit data." });
   });
 
   // AI Chat Route
@@ -82,6 +88,7 @@ Lead Generation:
 
   // API route for inquiries
   app.post("/api/inquiry", async (req, res) => {
+    console.log("POST /api/inquiry received request");
     const { name, email, country, product, message, subject: bodySubject } = req.body;
 
     console.log("Receiving inquiry:", { name, email, country, product, message, bodySubject });
