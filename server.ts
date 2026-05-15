@@ -26,14 +26,27 @@ async function startServer() {
 
   // Top-level Health check (no prefix)
   app.get("/health-check", (req, res) => {
-    console.log("Top-level health check reached");
-    res.json({ status: "ok", type: "top-level", env: process.env.NODE_ENV });
+    const info = { 
+      status: "ok", 
+      type: "top-level", 
+      env: process.env.NODE_ENV,
+      host: req.get('host'),
+      url: req.url,
+      headers: req.headers
+    };
+    console.log("Health check response:", JSON.stringify(info));
+    res.json(info);
   });
 
   // Health check API
   app.get("/api/health", (req, res) => {
-    console.log("Health check reached");
-    res.json({ status: "ok", time: new Date().toISOString() });
+    const info = { 
+      status: "ok", 
+      time: new Date().toISOString(),
+      host: req.get('host')
+    };
+    console.log("API Health check response:", JSON.stringify(info));
+    res.json(info);
   });
 
   // AI Chat Route

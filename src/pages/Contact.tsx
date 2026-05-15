@@ -138,10 +138,11 @@ export default function Contact() {
                       const results = [];
                       for (const path of ["/api/health", "/health-check"]) {
                         try {
+                          const url = `${window.location.origin}${path}`;
                           const start = Date.now();
-                          const res = await fetch(path);
+                          const res = await fetch(url);
                           const text = await res.text();
-                          results.push(`${path}: ${res.status} (${Date.now() - start}ms) - ${text.substring(0, 50)}`);
+                          results.push(`URL: ${url}\nStatus: ${res.status}\nTime: ${Date.now() - start}ms\nContent: ${text.substring(0, 100)}`);
                         } catch (e: any) {
                           results.push(`${path}: Error - ${e.message}`);
                         }
