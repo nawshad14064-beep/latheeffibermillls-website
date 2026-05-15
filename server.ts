@@ -3,6 +3,7 @@ import { createServer as createViteServer } from "vite";
 import path from "path";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import cors from "cors";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
@@ -11,17 +12,21 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  // Middleware
+  app.use(cors());
   app.use(express.json());
   
-  // Health check
-  app.get("/api/health", (req, res) => {
-    console.log("Health check requested");
-    res.json({ status: "ok", time: new Date().toISOString() });
+  // Request Logger
+  app.use((req, res, next) => {
+    if (!req.url.startsWith('/@vite') && !req.url.startsWith('/src')) {
+      console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    }
+    next();
   });
 
-  // Test GET route
-  app.get("/api/inquiry", (req, res) => {
-    res.json({ message: "Inquiry API is active. Use POST to submit data." });
+  // Health check
+  app.get("/api/health", (req, res) => {
+    res.json({ status: "ok", time: new Date().toISOString() });
   });
 
   // AI Chat Route
@@ -88,21 +93,16 @@ Lead Generation:
 
   // API route for inquiries
   app.post("/api/inquiry", async (req, res) => {
-    console.log("POST /api/inquiry received request");
     const { name, email, country, product, message, subject: bodySubject } = req.body;
 
-    console.log("Receiving inquiry:", { name, email, country, product, message, bodySubject });
-
-    // Configure transporter - Using direct credentials as fallback
+    // Configure transporter
     const smtpUser = "nawshad14064@gmail.com";
     const smtpPass = "wwqq xive fjei cfby".replace(/\s+/g, "");
 
-    console.log("Attempting SMTP connection with user:", smtpUser);
-    
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
-      secure: false, // Use STARTTLS
+      secure: false,
       auth: {
         user: smtpUser,
         pass: smtpPass,
@@ -110,17 +110,13 @@ Lead Generation:
     });
 
     try {
-      console.log("Verifying SMTP connection...");
-      // Verify transporter configuration
       await transporter.verify();
-      console.log("SMTP Connection verified successfully");
 
       const emailSubject = bodySubject || `New Inquiry from ${name} - Latheef Fiber Mills`;
 
-      console.log("Sending email to:", process.env.RECIPIENT_EMAIL || "nawshad14064@gmail.com");
       const info = await transporter.sendMail({
         from: `"Website Inquiry" <${smtpUser}>`,
-        to: process.env.RECIPIENT_EMAIL || "nawshad14064@gmail.com",
+        to: "nawshad14064@gmail.com",
         replyTo: email,
         subject: emailSubject,
         text: `
@@ -129,7 +125,6 @@ Lead Generation:
           Email: ${email}
           Country: ${country || 'N/A'}
           Product: ${product || 'N/A'}
-          Subject: ${bodySubject || 'N/A'}
           Message: ${message}
         `,
         html: `
@@ -140,7 +135,6 @@ Lead Generation:
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Country:</strong> ${country || 'N/A'}</p>
             <p><strong>Product:</strong> ${product || 'N/A'}</p>
-            <p><strong>Subject:</strong> ${bodySubject || 'N/A'}</p>
             <p><strong>Message:</strong></p>
             <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid #d4af37;">
               ${message.replace(/\n/g, '<br/>')}
@@ -149,16 +143,10 @@ Lead Generation:
         `,
       });
 
-      console.log("Email sent! MessageID:", info.messageId);
-      res.status(200).json({ success: true, message: "Email sent successfully" });
+      console.log("Email sent successfully:", info.messageId);
+      res.status(200).json({ success: true });
     } catch (error: any) {
-      console.error("CRITICAL SMTP ERROR:", {
-        message: error.message,
-        code: error.code,
-        command: error.command,
-        response: error.response,
-        stack: error.stack
-      });
+      console.error("Email Error:", error.message);
       res.status(500).json({ 
         success: false, 
         error: "Failed to send email", 
@@ -167,7 +155,7 @@ Lead Generation:
     }
   });
 
-  // Vite middleware for development
+  // Vite / Static Assets
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
