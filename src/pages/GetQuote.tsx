@@ -43,9 +43,9 @@ export default function GetQuote() {
         const errorData = await response.json();
         alert(`Failed to send quote request: ${errorData.details || "Please try again later."}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending quote request:", error);
-      alert("An error occurred. Please check your connection.");
+      alert(`An error occurred: ${error.message || "Please check your connection."}`);
     } finally {
       setIsSubmitting(false);
     }

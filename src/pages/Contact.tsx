@@ -46,9 +46,9 @@ export default function Contact() {
         const errorData = await response.json();
         alert(`Failed to send message: ${errorData.details || "Please try again later."}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending inquiry:", error);
-      alert("An error occurred. Please check your connection.");
+      alert(`An error occurred: ${error.message || "Please check your connection."}`);
     } finally {
       setIsSubmitting(false);
     }
