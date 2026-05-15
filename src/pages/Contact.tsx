@@ -135,17 +135,22 @@ export default function Contact() {
                     type="button" 
                     variant="outline" 
                     onClick={async () => {
-                      try {
-                        const res = await fetch("/api/health");
-                        const data = await res.json();
-                        alert(`Conn test: ${res.status} | ${JSON.stringify(data)}`);
-                      } catch (e: any) {
-                        alert(`Conn error: ${e.message}`);
+                      const results = [];
+                      for (const path of ["/api/health", "/health-check"]) {
+                        try {
+                          const start = Date.now();
+                          const res = await fetch(path);
+                          const text = await res.text();
+                          results.push(`${path}: ${res.status} (${Date.now() - start}ms) - ${text.substring(0, 50)}`);
+                        } catch (e: any) {
+                          results.push(`${path}: Error - ${e.message}`);
+                        }
                       }
+                      alert(results.join("\n\n"));
                     }}
                     className="text-[10px] h-8 px-4 opacity-30 hover:opacity-100"
                   >
-                    Test Server Connection
+                    Diagnose Connection
                   </Button>
                 </div>
                 

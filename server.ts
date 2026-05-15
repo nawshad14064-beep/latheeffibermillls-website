@@ -18,13 +18,19 @@ async function startServer() {
   
   // Request Logger
   app.use((req, res, next) => {
-    if (!req.url.startsWith('/@vite') && !req.url.startsWith('/src')) {
+    if (!req.url.startsWith('/@vite') && !req.url.startsWith('/src') && !req.url.includes('.js') && !req.url.includes('.css')) {
       console.log(`[SERVER DEBUG] ${new Date().toISOString()} | ${req.method} ${req.url} | Host: ${req.get('host')}`);
     }
     next();
   });
 
-  // Health check
+  // Top-level Health check (no prefix)
+  app.get("/health-check", (req, res) => {
+    console.log("Top-level health check reached");
+    res.json({ status: "ok", type: "top-level", env: process.env.NODE_ENV });
+  });
+
+  // Health check API
   app.get("/api/health", (req, res) => {
     console.log("Health check reached");
     res.json({ status: "ok", time: new Date().toISOString() });
@@ -165,22 +171,36 @@ Lead Generation:
 
   // Vite / Static Assets
   if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa",
-    });
-    app.use(vite.middlewares);
+    console.log("Initializing Vite in middleware mode...");
+    try {
+      const vite = await createViteServer({
+        server: { middlewareMode: true },
+        appType: "spa",
+      });
+      app.use(vite.middlewares);
+      console.log("Vite middleware attached");
+    } catch (e) {
+      console.error("Vite initialization failed:", e);
+    }
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
+      console.log(`[PRODUCTION CATCH-ALL] ${req.url}`);
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
 
+  app.use((req, res) => {
+    console.log(`[404 NOT FOUND] ${req.method} ${req.url}`);
+    res.status(404).json({ error: "Not Found", path: req.url });
+  });
+
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`[SERVER OK] Express listening on port ${PORT}`);
   });
 }
 
-startServer();
+startServer().catch(err => {
+  console.error("CRITICAL BOOTSTRAP ERROR:", err);
+});
