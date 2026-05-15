@@ -19,19 +19,21 @@ async function startServer() {
   // Request Logger
   app.use((req, res, next) => {
     if (!req.url.startsWith('/@vite') && !req.url.startsWith('/src')) {
-      console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+      console.log(`[SERVER DEBUG] ${new Date().toISOString()} | ${req.method} ${req.url} | Host: ${req.get('host')}`);
     }
     next();
   });
 
   // Health check
   app.get("/api/health", (req, res) => {
+    console.log("Health check reached");
     res.json({ status: "ok", time: new Date().toISOString() });
   });
 
   // AI Chat Route
   app.post("/api/chat", async (req, res) => {
     const { message, history } = req.body;
+    console.log("POST /api/chat reached");
     
     if (!process.env.GEMINI_API_KEY) {
       console.error("GEMINI_API_KEY is not configured");
@@ -92,7 +94,13 @@ Lead Generation:
   });
 
   // API route for inquiries
+  app.get("/api/inquiry", (req, res) => {
+    console.log("GET /api/inquiry reached");
+    res.json({ status: "alive", method: "GET" });
+  });
+
   app.post("/api/inquiry", async (req, res) => {
+    console.log("POST /api/inquiry reached");
     const { name, email, country, product, message, subject: bodySubject } = req.body;
 
     // Configure transporter

@@ -131,6 +131,22 @@ export default function Contact() {
                 <div className="space-y-4">
                   <h3 className="text-4xl font-bold text-white font-serif">Send a Message</h3>
                   <p className="text-white/40 font-light">Fill out the form below and we'll be in touch shortly.</p>
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={async () => {
+                      try {
+                        const res = await fetch("/api/health");
+                        const data = await res.json();
+                        alert(`Conn test: ${res.status} | ${JSON.stringify(data)}`);
+                      } catch (e: any) {
+                        alert(`Conn error: ${e.message}`);
+                      }
+                    }}
+                    className="text-[10px] h-8 px-4 opacity-30 hover:opacity-100"
+                  >
+                    Test Server Connection
+                  </Button>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
